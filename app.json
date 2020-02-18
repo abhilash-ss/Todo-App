@@ -4,6 +4,11 @@
     "slug": "TodoApp",
     "privacy": "public",
     "sdkVersion": "36.0.0",
+    "android": {
+      "package": "com.",
+      "versionCode": "1.0.0",
+      "permissions": []
+    },
     "platforms": [
       "ios",
       "android",
@@ -25,6 +30,7 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": ""
   }
 }
