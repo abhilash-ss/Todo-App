@@ -4,11 +4,6 @@
     "slug": "TodoApp",
     "privacy": "public",
     "sdkVersion": "36.0.0",
-    "android": {
-      "package": "com.",
-      "versionCode": "1",
-      "permissions": []
-    },
     "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
