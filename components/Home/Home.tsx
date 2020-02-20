@@ -20,7 +20,8 @@ import TodoItem from '../TodoItem/TodoItem';
 import AddTodo from '../AddTodo/AddTodo';
 // import Drawer from '../Drawer/Drawer';
 
-export default function Home() {
+export default function Home(props) {
+  const { navigation } = props;
   const [todo, setTodos] = useState([
     { text: 'one', key: '1' },
     { text: 'two', key: '2' },
@@ -56,7 +57,7 @@ export default function Home() {
       }}
     >
       <View style={styles.container}>
-        <Header />
+        <Header navigation={navigation} />
         <View style={styles.content}>
           <AddTodo submitHandler={submitHandler} />
           <View style={styles.list}>
