@@ -3,6 +3,5 @@
 ## Developer setup
 
 - Clone this repo: https://github.com/itsmeAB/Todo-App
-- Install node and npm (versions in package.json).
 - Run Yarn in the console
-- Run Yarn start
+- Run Yarn start will open in browser http://localhost:19002/
