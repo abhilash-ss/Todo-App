@@ -18,6 +18,7 @@ import {
 import Header from '../Header/Header';
 import TodoItem from '../TodoItem/TodoItem';
 import AddTodo from '../AddTodo/AddTodo';
+import { TodoProps, TodoKeyProps } from '../../utils/Interfaces/todo';
 // import Drawer from '../Drawer/Drawer';
 
 interface HProps {
@@ -26,19 +27,19 @@ interface HProps {
 
 export default function Home(props:HProps) {
   const { navigation } = props;
-  const [todo, setTodos] = useState([
+  const [todo, setTodos] = useState<TodoProps[]>([
     { text: 'one', key: '1' },
     { text: 'two', key: '2' },
     { text: 'three', key: '3' },
   ]);
 
-  const pressHandler = (key:any) => {
+  const pressHandler = (key:TodoKeyProps['key']) => {
     setTodos(prevTodos => {
       return prevTodos.filter(todo => todo.key !== key);
     });
   };
 
-  const submitHandler = (text:any) => {
+  const submitHandler = (text:string) => {
     if (text.length > 3) {
       setTodos(prevTodos => {
         return [{ text: text, key: Math.random().toString() }, ...prevTodos];

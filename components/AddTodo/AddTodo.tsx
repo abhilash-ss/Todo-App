@@ -10,13 +10,13 @@ import {
 } from 'react-native';
 
 interface AProps {
-  submitHandler: (text:any) => any
+  submitHandler: (text:string) => any
 }
 
 export default function AddTodo({submitHandler}:AProps) {
-  const [text, setText] = useState<any>('');
+  const [text, setText] = useState<string>('');
 
-  const changeHandler = (value:any) => {
+  const changeHandler = (value:string) => {
     setText(value);
   };
 

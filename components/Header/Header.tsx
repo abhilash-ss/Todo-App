@@ -9,7 +9,9 @@ import {
 import { MaterialIcons } from '@expo/vector-icons';
 
 interface HProps {
-  navigation:any
+  navigation:{
+    openDrawer:() => any
+  }
 }
 
 export default function Header({ navigation }:HProps) {
