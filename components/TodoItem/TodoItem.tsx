@@ -7,11 +7,11 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { TodoProps, TodoKeyProps } from '../../utils/Interfaces/todo';
+import { TodoProps } from '../../utils/Interfaces/todo';
 
 interface TIProps {
   item:TodoProps,
-  pressHandler: (key:TodoKeyProps['key']) => any
+  pressHandler: (key:TodoProps['key']) => any
 }
 
 export default function TodoItem({ item, pressHandler }:TIProps) {

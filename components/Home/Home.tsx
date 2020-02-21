@@ -18,7 +18,7 @@ import {
 import Header from '../Header/Header';
 import TodoItem from '../TodoItem/TodoItem';
 import AddTodo from '../AddTodo/AddTodo';
-import { TodoProps, TodoKeyProps } from '../../utils/Interfaces/todo';
+import { TodoProps } from '../../utils/Interfaces/todo';
 // import Drawer from '../Drawer/Drawer';
 
 interface HProps {
@@ -33,7 +33,7 @@ export default function Home(props:HProps) {
     { text: 'three', key: '3' },
   ]);
 
-  const pressHandler = (key:TodoKeyProps['key']) => {
+  const pressHandler = (key:TodoProps['key']) => {
     setTodos(prevTodos => {
       return prevTodos.filter(todo => todo.key !== key);
     });
