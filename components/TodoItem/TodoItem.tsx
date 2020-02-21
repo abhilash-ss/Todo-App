@@ -8,7 +8,15 @@ import {
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-export default function TodoItem({ item, pressHandler }) {
+interface TIProps {
+  item:{
+    key: any,
+    text:any
+  },
+  pressHandler: (item:any) => any
+}
+
+export default function TodoItem({ item, pressHandler }:TIProps) {
   return (
     <TouchableOpacity onPress={() => pressHandler(item.key)}>
       <View style={styles.item}>

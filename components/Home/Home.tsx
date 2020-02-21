@@ -20,7 +20,11 @@ import TodoItem from '../TodoItem/TodoItem';
 import AddTodo from '../AddTodo/AddTodo';
 // import Drawer from '../Drawer/Drawer';
 
-export default function Home(props) {
+interface HProps {
+  navigation:any
+}
+
+export default function Home(props:HProps) {
   const { navigation } = props;
   const [todo, setTodos] = useState([
     { text: 'one', key: '1' },
@@ -28,13 +32,13 @@ export default function Home(props) {
     { text: 'three', key: '3' },
   ]);
 
-  const pressHandler = key => {
+  const pressHandler = (key:any) => {
     setTodos(prevTodos => {
       return prevTodos.filter(todo => todo.key !== key);
     });
   };
 
-  const submitHandler = text => {
+  const submitHandler = (text:any) => {
     if (text.length > 3) {
       setTodos(prevTodos => {
         return [{ text: text, key: Math.random().toString() }, ...prevTodos];

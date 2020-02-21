@@ -8,7 +8,11 @@ import {
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-export default function Header({ navigation }) {
+interface HProps {
+  navigation:any
+}
+
+export default function Header({ navigation }:HProps) {
   return (
     <View style={styles.header}>
       <TouchableOpacity
