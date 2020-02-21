@@ -8,24 +8,17 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
-} from '@react-navigation/drawer';
 import Header from '../Header/Header';
 import TodoItem from '../TodoItem/TodoItem';
 import AddTodo from '../AddTodo/AddTodo';
+import ActionButton from '../ActionButton/ActionButton';
 import { TodoProps } from '../../utils/Interfaces/todo';
-// import Drawer from '../Drawer/Drawer';
 
 interface HProps {
-  navigation:any
+  navigation: any;
 }
 
-export default function Home(props:HProps) {
+export default function Home(props: HProps) {
   const { navigation } = props;
   const [todo, setTodos] = useState<TodoProps[]>([
     { text: 'one', key: '1' },
@@ -33,13 +26,13 @@ export default function Home(props:HProps) {
     { text: 'three', key: '3' },
   ]);
 
-  const pressHandler = (key:TodoProps['key']) => {
+  const pressHandler = (key: TodoProps['key']) => {
     setTodos(prevTodos => {
       return prevTodos.filter(todo => todo.key !== key);
     });
   };
 
-  const submitHandler = (text:string) => {
+  const submitHandler = (text: string) => {
     if (text.length > 3) {
       setTodos(prevTodos => {
         return [{ text: text, key: Math.random().toString() }, ...prevTodos];
@@ -74,6 +67,7 @@ export default function Home(props:HProps) {
             />
           </View>
         </View>
+        <ActionButton />
       </View>
     </TouchableWithoutFeedback>
   );

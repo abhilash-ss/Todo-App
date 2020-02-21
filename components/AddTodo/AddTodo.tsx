@@ -6,17 +6,17 @@ import {
   FlatList,
   TouchableOpacity,
   TextInput,
-  Button
+  Button,
 } from 'react-native';
 
 interface AProps {
-  submitHandler: (text:string) => any
+  submitHandler: (text: string) => any;
 }
 
-export default function AddTodo({submitHandler}:AProps) {
+export default function AddTodo({ submitHandler }: AProps) {
   const [text, setText] = useState<string>('');
 
-  const changeHandler = (value:string) => {
+  const changeHandler = (value: string) => {
     setText(value);
   };
 
@@ -24,10 +24,14 @@ export default function AddTodo({submitHandler}:AProps) {
     <View>
       <TextInput
         style={styles.input}
-        placeholder='new todo...'
+        placeholder="new todo..."
         onChangeText={changeHandler}
       />
-      <Button onPress={() => submitHandler(text)} title='add todo' color='coral' />
+      <Button
+        onPress={() => submitHandler(text)}
+        title="add todo"
+        color="coral"
+      />
     </View>
   );
 }
@@ -38,6 +42,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: 6,
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd'
-  }
+    borderBottomColor: '#ddd',
+  },
 });
