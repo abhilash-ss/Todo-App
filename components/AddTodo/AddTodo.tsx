@@ -9,10 +9,14 @@ import {
   Button
 } from 'react-native';
 
-export default function AddTodo({submitHandler}) {
-  const [text, setText] = useState('');
+interface AProps {
+  submitHandler: (text:string) => any
+}
 
-  const changeHandler = value => {
+export default function AddTodo({submitHandler}:AProps) {
+  const [text, setText] = useState<string>('');
+
+  const changeHandler = (value:string) => {
     setText(value);
   };
 

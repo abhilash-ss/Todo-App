@@ -10,7 +10,8 @@ import Home from './components/Home/Home';
 
 const Drawer = createDrawerNavigator();
 
-function CustomDrawerContent(props) {
+
+function CustomDrawerContent(props:any) {
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
