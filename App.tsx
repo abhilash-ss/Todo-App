@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {
   createDrawerNavigator,
@@ -8,14 +8,12 @@ import {
 } from '@react-navigation/drawer';
 import Home from './components/Home/Home';
 import { themes } from './src/constants/themes';
+import {ThemeContext} from './src/utils/themeContext'
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawerContent = (props) => {
   const { setTheme } = props
-  // const [theme] = useContext(ThemeContext);
-
-
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
@@ -43,12 +41,11 @@ const CustomDrawerContent = (props) => {
   );
 }
 
-export const ThemeContext = React.createContext([]);
 
 export default function App() {
   const [theme, setTheme] = useState(themes.light)
   return (
-    <ThemeContext.Provider value={[theme, setTheme]}>
+    <ThemeContext.Provider value={{theme, setTheme}}>
       <NavigationContainer>
         <Drawer.Navigator drawerContent={props => CustomDrawerContent({ ...props, setTheme })}>
           <Drawer.Screen name="Home" component={Home} />

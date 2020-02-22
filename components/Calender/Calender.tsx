@@ -5,11 +5,11 @@ import {
   Dimensions,
   ScrollView
 } from 'react-native';
-import { ThemeContext } from '../../App';
+import { ThemeContext } from '../../src/utils/themeContext';
 
 const Calender = (props) => {
   const screenWidth = Math.round(Dimensions.get('window').width);
-  const [theme] = useContext(ThemeContext);
+  const {theme} = useContext(ThemeContext);
   const styles = StyleSheet.create({
     container: {
       maxHeight: screenWidth / 6,
