@@ -1,6 +1,6 @@
-export const themes = {
-    light :{
-        colors :{
+export const themes: Ithemes = {
+    light: {
+        colors: {
             primary: "#ff5f08",//orange,
             secondary: "#747474", //dark grey,
             teraitary: "#d7d7d7", //grey,
@@ -10,8 +10,8 @@ export const themes = {
             primary: "raleway"
         }
     },
-    dark :{
-        colors :{
+    dark: {
+        colors: {
             primary: "red",//orange,
             secondary: "orange", //dark grey,
             teraitary: "blue", //grey,
@@ -21,4 +21,20 @@ export const themes = {
             primary: "uni-sans"
         }
     }
+}
+
+interface Itheme {
+    colors: {
+        primary: string,
+        secondary: string,
+        teraitary: string,
+        quaternary: string,
+    },
+    font: {
+        primary: string,
+    }
+}
+export interface Ithemes {
+    light: Itheme,
+    dark: Itheme,
 }

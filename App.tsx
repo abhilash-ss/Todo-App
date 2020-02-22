@@ -8,11 +8,13 @@ import {
 } from '@react-navigation/drawer';
 import Home from './Containers/Home/Home';
 import ConfigTask from './Containers/ConfigTask/ConfigTask';
-import { themes } from './src/constants/themes';
+import { themes, Ithemes } from './src/constants/themes';
 import { ThemeContext } from './src/utils/themeContext';
 
 const Drawer = createDrawerNavigator();
 // const Stack = createStackNavigator();
+
+const usedTheme: Array<keyof Ithemes> = ['light', 'dark'];
 
 function CustomDrawerContent(props: any) {
   const { setTheme } = props;
@@ -31,7 +33,7 @@ function CustomDrawerContent(props: any) {
         label="About"
         onPress={() => props.navigation.toggleDrawer()}
       />
-      {Object.keys(themes).map((item: string, index: number) => (
+      {usedTheme.map((item, index) => (
         <DrawerItem
           key={index.toString()}
           label={'set theme' + item}

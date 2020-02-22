@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { ThemeContext } from '../../src/utils/themeContext';
 
-const Calender = (props) => {
+const Calender = () => {
   const screenWidth = Math.round(Dimensions.get('window').width);
   const {theme} = useContext(ThemeContext);
   const styles = StyleSheet.create({
