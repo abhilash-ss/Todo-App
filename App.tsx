@@ -12,7 +12,8 @@ import {ThemeContext} from './src/utils/themeContext'
 
 const Drawer = createDrawerNavigator();
 
-const CustomDrawerContent = (props) => {
+
+function CustomDrawerContent(props:any) {
   const { setTheme } = props
   return (
     <DrawerContentScrollView {...props}>

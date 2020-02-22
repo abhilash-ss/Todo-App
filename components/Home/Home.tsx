@@ -8,35 +8,35 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
-} from '@react-navigation/drawer';
 import Header from '../Header/Header';
 import TodoItem from '../TodoItem/TodoItem';
 import AddTodo from '../AddTodo/AddTodo';
 import Calender from '../Calender/Calender';
 
 // import Drawer from '../Drawer/Drawer';
+import ActionButton from '../ActionButton/ActionButton';
+import { TodoProps } from '../../utils/Interfaces/todo';
+import CategoryCard from '../CategoryCard'
 
-export default function Home(props) {
+interface HProps {
+  navigation: any;
+}
+
+export default function Home(props: HProps) {
   const { navigation } = props;
-  const [todo, setTodos] = useState([
+  const [todo, setTodos] = useState<TodoProps[]>([
     { text: 'one', key: '1' },
     { text: 'two', key: '2' },
     { text: 'three', key: '3' },
   ]);
 
-  const pressHandler = key => {
+  const pressHandler = (key: TodoProps['key']) => {
     setTodos(prevTodos => {
       return prevTodos.filter(todo => todo.key !== key);
     });
   };
 
-  const submitHandler = text => {
+  const submitHandler = (text: string) => {
     if (text.length > 3) {
       setTodos(prevTodos => {
         return [{ text: text, key: Math.random().toString() }, ...prevTodos];
@@ -63,7 +63,18 @@ export default function Home(props) {
         <Calender/>
         <View style={styles.content}>
           <AddTodo submitHandler={submitHandler} />
-          <View style={styles.list}>
+          <CategoryCard title='Missed Tasks' verticalBarColor={'#E74535'}  >
+          <View >
+            <FlatList
+              data={todo}
+              renderItem={({ item }) => (
+                <TodoItem item={item} pressHandler={pressHandler}  />
+              )}
+            />
+          </View>
+          </CategoryCard>
+          <CategoryCard title='Upcoming Tasks'  verticalBarColor={'#ED5D36'}   >
+          <View >
             <FlatList
               data={todo}
               renderItem={({ item }) => (
@@ -71,7 +82,19 @@ export default function Home(props) {
               )}
             />
           </View>
+          </CategoryCard>
+          <CategoryCard title='Done Tasks'  verticalBarColor={'#336806'}  >
+          <View >
+            <FlatList
+              data={todo}
+              renderItem={({ item }) => (
+                <TodoItem item={item} pressHandler={pressHandler} />
+              )}
+            />
+          </View>
+          </CategoryCard>
         </View>
+        <ActionButton />
       </View>
     </TouchableWithoutFeedback>
   );
