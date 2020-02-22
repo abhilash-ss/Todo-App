@@ -13,6 +13,7 @@ import TodoItem from '../TodoItem/TodoItem';
 import AddTodo from '../AddTodo/AddTodo';
 import ActionButton from '../ActionButton/ActionButton';
 import { TodoProps } from '../../utils/Interfaces/todo';
+import CategoryCard from '../CategoryCard'
 
 interface HProps {
   navigation: any;
@@ -58,7 +59,18 @@ export default function Home(props: HProps) {
         <Header navigation={navigation} />
         <View style={styles.content}>
           <AddTodo submitHandler={submitHandler} />
-          <View style={styles.list}>
+          <CategoryCard title='Missed Tasks' verticalBarColor={'#E74535'}  >
+          <View >
+            <FlatList
+              data={todo}
+              renderItem={({ item }) => (
+                <TodoItem item={item} pressHandler={pressHandler}  />
+              )}
+            />
+          </View>
+          </CategoryCard>
+          <CategoryCard title='Upcoming Tasks'  verticalBarColor={'#ED5D36'}   >
+          <View >
             <FlatList
               data={todo}
               renderItem={({ item }) => (
@@ -66,6 +78,17 @@ export default function Home(props: HProps) {
               )}
             />
           </View>
+          </CategoryCard>
+          <CategoryCard title='Done Tasks'  verticalBarColor={'#336806'}  >
+          <View >
+            <FlatList
+              data={todo}
+              renderItem={({ item }) => (
+                <TodoItem item={item} pressHandler={pressHandler} />
+              )}
+            />
+          </View>
+          </CategoryCard>
         </View>
         <ActionButton />
       </View>
