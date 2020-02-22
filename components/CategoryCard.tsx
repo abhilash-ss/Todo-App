@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 import {
     StyleSheet,
     Text,
-    View
+    View,
+    TouchableHighlight
 } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
 
 interface CCProps {
     title: string,
