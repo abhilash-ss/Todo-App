@@ -6,8 +6,8 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-import Home from './Containers/Home/Home';
-import ConfigTask from './Containers/ConfigTask/ConfigTask';
+import Home from './src/Containers/Home/Home';
+import ConfigTask from './src/Containers/ConfigTask/ConfigTask';
 import { themes, Ithemes } from './src/constants/themes';
 import { ThemeContext } from './src/utils/themeContext';
 

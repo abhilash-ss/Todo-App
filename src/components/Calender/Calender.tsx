@@ -1,15 +1,11 @@
 import React, { useContext } from 'react';
 import { View, Text } from 'react-native';
-import {
-  StyleSheet,
-  Dimensions,
-  ScrollView
-} from 'react-native';
-import { ThemeContext } from '../../src/utils/themeContext';
+import { StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { ThemeContext } from '../../utils/themeContext';
 
 const Calender = () => {
   const screenWidth = Math.round(Dimensions.get('window').width);
-  const {theme} = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   const styles = StyleSheet.create({
     container: {
       maxHeight: screenWidth / 6,
@@ -20,25 +16,27 @@ const Calender = () => {
       width: screenWidth / 6,
       height: screenWidth / 6,
       backgroundColor: theme.colors.primary,
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center"
-    }
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
   });
 
-  const displayedDates = []
-  let i = 30
+  const displayedDates = [];
+  let i = 30;
   while (i) {
     displayedDates.push(i);
-    i--
+    i--;
   }
   return (
     <ScrollView style={styles.container} horizontal>
-      {displayedDates.map((i) => <View key={i.toString()} style={styles.tile}>
-        <Text>Feb</Text>
-        <Text>{i}</Text>
-      </View>)}
+      {displayedDates.map(i => (
+        <View key={i.toString()} style={styles.tile}>
+          <Text>Feb</Text>
+          <Text>{i}</Text>
+        </View>
+      ))}
     </ScrollView>
   );
-}
-export default Calender
+};
+export default Calender;
