@@ -1,6 +1,6 @@
 
 
-import React, { useState } from 'react';
+import React, { useState, ReactNode } from 'react';
 import {
     StyleSheet,
     Text,
@@ -10,7 +10,7 @@ import {
 
 interface CCProps {
     title: string,
-    children: JSX.Element,
+    children: ReactNode,
     verticalBarColor: string
 }
 
