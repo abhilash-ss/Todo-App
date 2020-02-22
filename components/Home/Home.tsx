@@ -18,6 +18,8 @@ import {
 import Header from '../Header/Header';
 import TodoItem from '../TodoItem/TodoItem';
 import AddTodo from '../AddTodo/AddTodo';
+import Calender from '../Calender';
+
 // import Drawer from '../Drawer/Drawer';
 
 export default function Home(props) {
@@ -58,6 +60,9 @@ export default function Home(props) {
     >
       <View style={styles.container}>
         <Header navigation={navigation} />
+        <Calender/>
+        <Text>jnfrj
+        </Text>
         <View style={styles.content}>
           <AddTodo submitHandler={submitHandler} />
           <View style={styles.list}>
