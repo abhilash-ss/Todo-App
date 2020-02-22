@@ -8,14 +8,14 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
-import Header from '../Header/Header';
-import TodoItem from '../TodoItem/TodoItem';
-import AddTodo from '../AddTodo/AddTodo';
-import Calender from '../Calender/Calender';
+import Header from '../../components/Header/Header';
+import TodoItem from '../../components/TodoItem/TodoItem';
+import AddTodo from '../../components/AddTodo/AddTodo';
+import Calender from '../../components/Calender/Calender';
 
 // import Drawer from '../Drawer/Drawer';
-import ActionButton from '../ActionButton/ActionButton';
-import CategoryCard from '../CategoryCard/CategoryCard';
+import ActionButton from '../../components/ActionButton/ActionButton';
+import CategoryCard from '../../components/CategoryCard/CategoryCard';
 import { TodoProps } from '../../utils/Interfaces/todo';
 
 interface HProps {
