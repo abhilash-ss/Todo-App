@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {
   createDrawerNavigator,
@@ -7,6 +7,7 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import Home from './components/Home/Home';
+import { themes } from './src/constants/themes';
 
 const Drawer = createDrawerNavigator();
 
@@ -30,12 +31,16 @@ function CustomDrawerContent(props) {
   );
 }
 
+export const ThemeContext = React.createContext(themes.light);
+
 export default function App() {
   return (
-    <NavigationContainer>
-      <Drawer.Navigator drawerContent={props => CustomDrawerContent(props)}>
-        <Drawer.Screen name="Home" component={Home} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <ThemeContext.Provider value={themes.dark}>
+      <NavigationContainer>
+        <Drawer.Navigator drawerContent={props => CustomDrawerContent(props)}>
+          <Drawer.Screen name="Home" component={Home} />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </ThemeContext.Provider>
   );
 }
