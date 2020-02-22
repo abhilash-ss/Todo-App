@@ -1,5 +1,7 @@
-export const theme = {
+export const themes = {
     one :{
-         main: "#ff5f08",//orange
+         a: "#ff5f08",//orange,
+         b: "#FFF", //white,
     }
 }
+export const currentTheme = "one"

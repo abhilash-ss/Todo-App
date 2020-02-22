@@ -5,12 +5,18 @@ import {
   Dimensions,
   ScrollView
 } from 'react-native';
-import {theme} from '../../src/constants'
+import { themes, currentTheme } from '../../src/constants'
 const Calender = (props) => {
-  const displayedDates = [1,2,3,4,5,6,7,8,9,10,11,12,13,16]
+
+  const displayedDates = []
+  let i = 30
+  while (i) {
+    displayedDates.push(i);
+    i--
+  }
   return (
     <ScrollView style={styles.container} horizontal>
-      {displayedDates.map((i)=><View key={i.toString()} style={styles.tile}>
+      {displayedDates.map((i) => <View key={i.toString()} style={styles.tile}>
         <Text>Feb</Text>
         <Text>{i}</Text>
       </View>)}
@@ -22,18 +28,16 @@ export default Calender
 const screenWidth = Math.round(Dimensions.get('window').width);
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    height:100
+    maxHeight: screenWidth / 6,
   },
-  tile:{
-    marginRight:1,
-    marginLeft:1,
-    width: screenWidth/6,
-    height: screenWidth/6,
-    backgroundColor: theme.one.main,
-    display:"flex",
-    justifyContent:"center",
-    alignItems:"center"
+  tile: {
+    marginRight: 1,
+    marginLeft: 1,
+    width: screenWidth / 6,
+    height: screenWidth / 6,
+    backgroundColor: themes[currentTheme].a,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
