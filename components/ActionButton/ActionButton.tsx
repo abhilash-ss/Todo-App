@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 
 export interface ActionButtonProps {
-  onClick?: () => any;
+  onClick: () => any;
 }
 
 export default function ActionButton(props: ActionButtonProps) {
@@ -15,7 +15,7 @@ export default function ActionButton(props: ActionButtonProps) {
           name="md-add-circle"
           size={70}
           color="coral"
-          onPress={() => console.log('clicked')}
+          onPress={() => props.onClick()}
         />
       </TouchableOpacity>
     </View>

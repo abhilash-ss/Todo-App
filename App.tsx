@@ -6,15 +6,16 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
-import Home from './components/Home/Home';
+import Home from './Containers/Home/Home';
+import ConfigTask from './Containers/ConfigTask/ConfigTask';
 import { themes } from './src/constants/themes';
-import {ThemeContext} from './src/utils/themeContext'
+import { ThemeContext } from './src/utils/themeContext';
 
 const Drawer = createDrawerNavigator();
+// const Stack = createStackNavigator();
 
-
-function CustomDrawerContent(props:any) {
-  const { setTheme } = props
+function CustomDrawerContent(props: any) {
+  const { setTheme } = props;
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
@@ -30,26 +31,29 @@ function CustomDrawerContent(props:any) {
         label="About"
         onPress={() => props.navigation.toggleDrawer()}
       />
-      {Object.keys(themes).map((item,index) => <DrawerItem
-        key={index.toString()}
-        label={"set theme" + item}
-        onPress={() => {
-          setTheme(themes[item])
-        }}
-      />)}
-
+      {Object.keys(themes).map((item: string, index: number) => (
+        <DrawerItem
+          key={index.toString()}
+          label={'set theme' + item}
+          onPress={() => {
+            setTheme(themes[item]);
+          }}
+        />
+      ))}
     </DrawerContentScrollView>
   );
 }
 
-
 export default function App() {
-  const [theme, setTheme] = useState(themes.light)
+  const [theme, setTheme] = useState(themes.light);
   return (
-    <ThemeContext.Provider value={{theme, setTheme}}>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       <NavigationContainer>
-        <Drawer.Navigator drawerContent={props => CustomDrawerContent({ ...props, setTheme })}>
+        <Drawer.Navigator
+          drawerContent={props => CustomDrawerContent({ ...props, setTheme })}
+        >
           <Drawer.Screen name="Home" component={Home} />
+          <Drawer.Screen name="ConfigTask" component={ConfigTask} />
         </Drawer.Navigator>
       </NavigationContainer>
     </ThemeContext.Provider>
