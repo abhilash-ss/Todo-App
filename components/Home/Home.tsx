@@ -15,8 +15,8 @@ import Calender from '../Calender/Calender';
 
 // import Drawer from '../Drawer/Drawer';
 import ActionButton from '../ActionButton/ActionButton';
+import CategoryCard from '../CategoryCard/CategoryCard';
 import { TodoProps } from '../../utils/Interfaces/todo';
-import CategoryCard from '../CategoryCard'
 
 interface HProps {
   navigation: any;
@@ -60,41 +60,41 @@ export default function Home(props: HProps) {
     >
       <View style={styles.container}>
         <Header navigation={navigation} />
-        <Calender/>
+        <Calender />
         <View style={styles.content}>
           <AddTodo submitHandler={submitHandler} />
-          <CategoryCard title='Missed Tasks' verticalBarColor={'#E74535'}  >
-          <View >
-            <FlatList
-              data={todo}
-              renderItem={({ item }) => (
-                <TodoItem item={item} pressHandler={pressHandler}  />
-              )}
-            />
-          </View>
+          <CategoryCard title="Missed Tasks" verticalBarColor={'#E74535'}>
+            <View>
+              <FlatList
+                data={todo}
+                renderItem={({ item }) => (
+                  <TodoItem item={item} pressHandler={pressHandler} />
+                )}
+              />
+            </View>
           </CategoryCard>
-          <CategoryCard title='Upcoming Tasks'  verticalBarColor={'#ED5D36'}   >
-          <View >
-            <FlatList
-              data={todo}
-              renderItem={({ item }) => (
-                <TodoItem item={item} pressHandler={pressHandler} />
-              )}
-            />
-          </View>
+          <CategoryCard title="Upcoming Tasks" verticalBarColor={'#ED5D36'}>
+            <View>
+              <FlatList
+                data={todo}
+                renderItem={({ item }) => (
+                  <TodoItem item={item} pressHandler={pressHandler} />
+                )}
+              />
+            </View>
           </CategoryCard>
-          <CategoryCard title='Done Tasks'  verticalBarColor={'#336806'}  >
-          <View >
-            <FlatList
-              data={todo}
-              renderItem={({ item }) => (
-                <TodoItem item={item} pressHandler={pressHandler} />
-              )}
-            />
-          </View>
+          <CategoryCard title="Done Tasks" verticalBarColor={'#336806'}>
+            <View>
+              <FlatList
+                data={todo}
+                renderItem={({ item }) => (
+                  <TodoItem item={item} pressHandler={pressHandler} />
+                )}
+              />
+            </View>
           </CategoryCard>
         </View>
-        <ActionButton />
+        <ActionButton onClick={() => navigation.navigate('ConfigTask')} />
       </View>
     </TouchableWithoutFeedback>
   );
