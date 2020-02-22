@@ -11,6 +11,9 @@ import {
 import Header from '../Header/Header';
 import TodoItem from '../TodoItem/TodoItem';
 import AddTodo from '../AddTodo/AddTodo';
+import Calender from '../Calender/Calender';
+
+// import Drawer from '../Drawer/Drawer';
 import ActionButton from '../ActionButton/ActionButton';
 import { TodoProps } from '../../utils/Interfaces/todo';
 import CategoryCard from '../CategoryCard'
@@ -57,6 +60,7 @@ export default function Home(props: HProps) {
     >
       <View style={styles.container}>
         <Header navigation={navigation} />
+        <Calender/>
         <View style={styles.content}>
           <AddTodo submitHandler={submitHandler} />
           <CategoryCard title='Missed Tasks' verticalBarColor={'#E74535'}  >

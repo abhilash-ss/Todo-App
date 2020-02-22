@@ -7,11 +7,14 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import Home from './components/Home/Home';
+import { themes } from './src/constants/themes';
+import {ThemeContext} from './src/utils/themeContext'
 
 const Drawer = createDrawerNavigator();
 
 
 function CustomDrawerContent(props:any) {
+  const { setTheme } = props
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
@@ -27,16 +30,28 @@ function CustomDrawerContent(props:any) {
         label="About"
         onPress={() => props.navigation.toggleDrawer()}
       />
+      {Object.keys(themes).map((item,index) => <DrawerItem
+        key={index.toString()}
+        label={"set theme" + item}
+        onPress={() => {
+          setTheme(themes[item])
+        }}
+      />)}
+
     </DrawerContentScrollView>
   );
 }
 
+
 export default function App() {
+  const [theme, setTheme] = useState(themes.light)
   return (
-    <NavigationContainer>
-      <Drawer.Navigator drawerContent={props => CustomDrawerContent(props)}>
-        <Drawer.Screen name="Home" component={Home} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+    <ThemeContext.Provider value={{theme, setTheme}}>
+      <NavigationContainer>
+        <Drawer.Navigator drawerContent={props => CustomDrawerContent({ ...props, setTheme })}>
+          <Drawer.Screen name="Home" component={Home} />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </ThemeContext.Provider>
   );
 }
