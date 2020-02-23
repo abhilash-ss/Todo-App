@@ -1,6 +1,6 @@
 
 
-import React, { useState, ReactNode, useEffect, useRef } from 'react';
+import React, { useState, ReactNode, useEffect } from 'react';
 import {
     StyleSheet,
     Text,
