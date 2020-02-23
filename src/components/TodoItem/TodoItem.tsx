@@ -28,7 +28,7 @@ export default function TodoItem({ item, pressHandler }: TIProps) {
 const styles = StyleSheet.create({
   item: {
     padding: 16,
-    marginTop: 16,
+    marginVertical: 8,
     borderColor: '#bbb',
     borderWidth: 1,
     borderStyle: 'dashed',
