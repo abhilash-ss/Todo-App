@@ -6,13 +6,14 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
 import Home from './src/Containers/Home/Home';
 import ConfigTask from './src/Containers/ConfigTask/ConfigTask';
 import { themes, Ithemes } from './src/constants/themes';
 import { ThemeContext } from './src/utils/themeContext';
 
 const Drawer = createDrawerNavigator();
-// const Stack = createStackNavigator();
+const Stack = createStackNavigator();
 
 const usedTheme: Array<keyof Ithemes> = ['light', 'dark'];
 
@@ -46,6 +47,21 @@ function CustomDrawerContent(props: any) {
   );
 }
 
+function root() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen name="ConfigTask" component={ConfigTask} />
+    </Stack.Navigator>
+  );
+}
+
 export default function App() {
   const [theme, setTheme] = useState(themes.light);
   return (
@@ -54,8 +70,7 @@ export default function App() {
         <Drawer.Navigator
           drawerContent={props => CustomDrawerContent({ ...props, setTheme })}
         >
-          <Drawer.Screen name="Home" component={Home} />
-          <Drawer.Screen name="ConfigTask" component={ConfigTask} />
+          <Drawer.Screen name="Home" component={root} />
         </Drawer.Navigator>
       </NavigationContainer>
     </ThemeContext.Provider>
