@@ -7,9 +7,6 @@ import {
     View,
     TouchableHighlight,
     Animated,
-    ViewComponent,
-    ViewProps,
-
 } from 'react-native';
 
 interface CCProps {
@@ -20,13 +17,13 @@ interface CCProps {
 
 export default function CategoryCard({ title, children, verticalBarColor }: CCProps) {
 
-    const [height] = useState(new Animated.Value(0)) 
+    const [maxHeight] = useState(new Animated.Value(0)) 
     const [expanded, SetExpanded] = useState<Boolean>(false);
 
     useEffect(() => {
         if (expanded) {
             Animated.timing(
-                height,
+                maxHeight,
                 {
                     toValue: 300,
                     duration: 300,
@@ -34,7 +31,7 @@ export default function CategoryCard({ title, children, verticalBarColor }: CCPr
             ).start();
         } else {
             Animated.timing(
-                height,
+                maxHeight,
                 {
                     toValue: 0,
                     duration: 300,
@@ -49,7 +46,7 @@ export default function CategoryCard({ title, children, verticalBarColor }: CCPr
                 <Text style={styles.titleText} >{title}</Text>
             </TouchableHighlight>
 
-            <Animated.View style={{ ...styles.listContainer, maxHeight: height }}  >
+            <Animated.View style={{ ...styles.listContainer, maxHeight }}  >
                 {children}
             </Animated.View>
 
