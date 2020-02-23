@@ -1,15 +1,16 @@
 import React, { useContext } from 'react';
-import { View, Text } from 'react-native';
+// import { View, Text } from 'react-native';
+import CalendarStrip from 'react-native-calendar-strip';
+import moment from 'moment';
 import {
   StyleSheet,
   Dimensions,
-  ScrollView
+  // ScrollView
 } from 'react-native';
 import { ThemeContext } from '../../src/utils/themeContext';
-
 const Calender = () => {
   const screenWidth = Math.round(Dimensions.get('window').width);
-  const {theme} = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   const styles = StyleSheet.create({
     container: {
       maxHeight: screenWidth / 6,
@@ -23,6 +24,14 @@ const Calender = () => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center"
+    },
+    dateStrip: { 
+      height: 70, 
+      // paddingTop: 20, 
+      // paddingBottom: 10, 
+      backgroundColor: theme.colors.primary },
+    dateNameStyle: {
+      color: "white"
     }
   });
 
@@ -32,13 +41,32 @@ const Calender = () => {
     displayedDates.push(i);
     i--
   }
+
+  let customDatesStyles = [];
+  let startDate = moment();
+  for (let i = 0; i < 6; i++) {
+    customDatesStyles.push({
+      startDate: startDate.clone().add(i, 'days'), // Single date since no endDate provided
+      dateNameStyle: styles.dateNameStyle,
+      dateNumberStyle: styles.dateNameStyle,
+      // Random color...
+      dateContainerStyle: styles.tile,
+    });
+  }
   return (
-    <ScrollView style={styles.container} horizontal>
-      {displayedDates.map((i) => <View key={i.toString()} style={styles.tile}>
-        <Text>Feb</Text>
-        <Text>{i}</Text>
-      </View>)}
-    </ScrollView>
+    <>
+      <CalendarStrip
+      showMonth={false}
+        customDatesStyles={customDatesStyles}
+        style={styles.dateStrip}
+      />
+      {/* <ScrollView style={styles.container} horizontal>
+        {displayedDates.map((i) => <View key={i.toString()} style={styles.tile}>
+          <Text>Feb</Text>
+          <Text>{i}</Text>
+        </View>)}
+      </ScrollView> */}
+    </>
   );
 }
 export default Calender
