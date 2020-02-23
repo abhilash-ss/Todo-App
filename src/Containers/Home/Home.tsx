@@ -55,13 +55,13 @@ export default function Home(props: HProps) {
     <TouchableWithoutFeedback
       onPress={() => {
         Keyboard.dismiss();
-        console.log('dismiss keyboard');
       }}
     >
       <View style={styles.container}>
         <Header navigation={navigation} />
         <Calender />
         <View style={styles.content}>
+          {/* TO DO : add today task list and notifications */}
           <AddTodo submitHandler={submitHandler} />
           <CategoryCard title="Missed Tasks" verticalBarColor={'#E74535'}>
             <View>
