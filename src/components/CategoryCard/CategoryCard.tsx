@@ -1,11 +1,12 @@
 
 
-import React, { useState, ReactNode } from 'react';
+import React, { useState, ReactNode, useEffect } from 'react';
 import {
     StyleSheet,
     Text,
     View,
-    TouchableHighlight
+    TouchableHighlight,
+    Animated,
 } from 'react-native';
 
 interface CCProps {
@@ -16,28 +17,51 @@ interface CCProps {
 
 export default function CategoryCard({ title, children, verticalBarColor }: CCProps) {
 
+    const [maxHeight] = useState(new Animated.Value(0)) 
     const [expanded, SetExpanded] = useState<Boolean>(false);
+
+    useEffect(() => {
+        if (expanded) {
+            Animated.timing(
+                maxHeight,
+                {
+                    toValue: 300,
+                    duration: 300,
+                }
+            ).start();
+        } else {
+            Animated.timing(
+                maxHeight,
+                {
+                    toValue: 0,
+                    duration: 300,
+                }
+            ).start();
+        }
+    }, [expanded])
 
     return (
         <View style={styles.container} >
             <TouchableHighlight style={{ ...styles.title, borderLeftColor: verticalBarColor }} underlayColor={'transparent'} onPress={() => SetExpanded(!expanded)} >
                 <Text style={styles.titleText} >{title}</Text>
             </TouchableHighlight>
-            {expanded &&
-                <View style={styles.listContainer} >
-                    {children}
-                </View>
-            }
+
+            <Animated.View style={{ ...styles.listContainer, maxHeight }}  >
+                {children}
+            </Animated.View>
+
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     listContainer: {
-        padding: 5,
+        paddingHorizontal: 5,
         borderWidth: 1,
         borderTopWidth: 0,
-        borderColor: '#d7d7d7'
+        borderColor: '#d7d7d7',
+        maxHeight: 0,
+        overflow: 'hidden',
     },
     title: {
         padding: 5,
@@ -50,8 +74,6 @@ const styles = StyleSheet.create({
         color: '#747474'
     },
     container: {
-        marginTop: 10,
-        marginBottom: 10,
         marginVertical: 10,
     }
 });

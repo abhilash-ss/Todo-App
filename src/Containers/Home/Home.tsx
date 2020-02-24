@@ -8,15 +8,15 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
-import Header from '../Header/Header';
-import TodoItem from '../TodoItem/TodoItem';
-import AddTodo from '../AddTodo/AddTodo';
-import Calender from '../Calender/Calender';
+import Header from '../../components/Header/Header';
+import TodoItem from '../../components/TodoItem/TodoItem';
+import AddTodo from '../../components/AddTodo/AddTodo';
+import Calender from '../../components/Calender/Calender';
 
 // import Drawer from '../Drawer/Drawer';
-import ActionButton from '../ActionButton/ActionButton';
+import ActionButton from '../../components/ActionButton/ActionButton';
+import CategoryCard from '../../components/CategoryCard/CategoryCard';
 import { TodoProps } from '../../utils/Interfaces/todo';
-import CategoryCard from '../CategoryCard'
 
 interface HProps {
   navigation: any;
@@ -55,46 +55,46 @@ export default function Home(props: HProps) {
     <TouchableWithoutFeedback
       onPress={() => {
         Keyboard.dismiss();
-        console.log('dismiss keyboard');
       }}
     >
       <View style={styles.container}>
         <Header navigation={navigation} />
-        <Calender/>
+        <Calender />
         <View style={styles.content}>
+          {/* TO DO : add today task list and notifications */}
           <AddTodo submitHandler={submitHandler} />
-          <CategoryCard title='Missed Tasks' verticalBarColor={'#E74535'}  >
-          <View >
-            <FlatList
-              data={todo}
-              renderItem={({ item }) => (
-                <TodoItem item={item} pressHandler={pressHandler}  />
-              )}
-            />
-          </View>
+          <CategoryCard title="Missed Tasks" verticalBarColor={'#E74535'}>
+            <View>
+              <FlatList
+                data={todo}
+                renderItem={({ item }) => (
+                  <TodoItem item={item} pressHandler={pressHandler} />
+                )}
+              />
+            </View>
           </CategoryCard>
-          <CategoryCard title='Upcoming Tasks'  verticalBarColor={'#ED5D36'}   >
-          <View >
-            <FlatList
-              data={todo}
-              renderItem={({ item }) => (
-                <TodoItem item={item} pressHandler={pressHandler} />
-              )}
-            />
-          </View>
+          <CategoryCard title="Upcoming Tasks" verticalBarColor={'#ED5D36'}>
+            <View>
+              <FlatList
+                data={todo}
+                renderItem={({ item }) => (
+                  <TodoItem item={item} pressHandler={pressHandler} />
+                )}
+              />
+            </View>
           </CategoryCard>
-          <CategoryCard title='Done Tasks'  verticalBarColor={'#336806'}  >
-          <View >
-            <FlatList
-              data={todo}
-              renderItem={({ item }) => (
-                <TodoItem item={item} pressHandler={pressHandler} />
-              )}
-            />
-          </View>
+          <CategoryCard title="Done Tasks" verticalBarColor={'#336806'}>
+            <View>
+              <FlatList
+                data={todo}
+                renderItem={({ item }) => (
+                  <TodoItem item={item} pressHandler={pressHandler} />
+                )}
+              />
+            </View>
           </CategoryCard>
         </View>
-        <ActionButton />
+        <ActionButton onClick={() => navigation.navigate('ConfigTask')} />
       </View>
     </TouchableWithoutFeedback>
   );

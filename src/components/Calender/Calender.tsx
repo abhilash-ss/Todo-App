@@ -3,7 +3,7 @@ import CalendarStrip from 'react-native-calendar-strip';
 import {
   StyleSheet,
 } from 'react-native';
-import { ThemeContext } from '../../src/utils/themeContext';
+import { ThemeContext } from '../../utils/themeContext';
 const Calender = () => {
   const { theme } = useContext(ThemeContext);
   const styles = StyleSheet.create({
@@ -32,5 +32,5 @@ const Calender = () => {
       />
     </>
   );
-}
-export default Calender
+};
+export default Calender;
