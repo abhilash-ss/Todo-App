@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -15,11 +15,14 @@ import DateTimePicker, {
 } from '@react-native-community/datetimepicker';
 import moment from 'moment';
 interface ConfigTaskProps {
-  isVisible?: boolean;
+  navigation: {
+    setOptions(options: Partial<{}>): void;
+  };
 }
 
 export default function ConfigTask(props: ConfigTaskProps) {
-  const [text, setText] = useState<string>('');
+  const [task, setTask] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
   const [date, setDate] = useState(new Date(1598051730000));
   const [mode, setMode] = useState<'date' | 'time' | 'datetime' | 'countdown'>(
     'date',
@@ -45,18 +48,36 @@ export default function ConfigTask(props: ConfigTaskProps) {
   const showTimepicker = () => {
     showMode('time');
   };
+
+  useEffect(() => {
+    const { navigation } = props;
+    navigation.setOptions({
+      headerRight: () => (
+        <View style={{ paddingRight: 10 }}>
+          <Button
+            onPress={e => alert('its working')}
+            title="Save"
+            color="blue"
+          />
+        </View>
+      ),
+    });
+  });
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
         <TextInput
           style={styles.input}
           placeholder="new task..."
-          onChangeText={e => console.log(e)}
+          value={task}
+          onChangeText={value => setTask(value)}
         />
         <TextInput
           style={styles.input}
           placeholder="Task description..."
-          onChangeText={e => console.log(e)}
+          value={description}
+          onChangeText={value => setDescription(value)}
         />
         <Text>Due date</Text>
         <TextInput

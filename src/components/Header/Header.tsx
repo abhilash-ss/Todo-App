@@ -9,12 +9,12 @@ import {
 import { MaterialIcons } from '@expo/vector-icons';
 
 interface HProps {
-  navigation:{
-    openDrawer:() => any
-  }
+  navigation: {
+    openDrawer: () => any;
+  };
 }
 
-export default function Header({ navigation }:HProps) {
+export default function Header({ navigation }: HProps) {
   return (
     <View style={styles.header}>
       <TouchableOpacity
