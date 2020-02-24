@@ -1,42 +1,36 @@
 import React, { useContext } from 'react';
-import { View, Text } from 'react-native';
-import { StyleSheet, Dimensions, ScrollView } from 'react-native';
+import CalendarStrip from 'react-native-calendar-strip';
+import {
+  StyleSheet,
+} from 'react-native';
 import { ThemeContext } from '../../utils/themeContext';
-
 const Calender = () => {
-  const screenWidth = Math.round(Dimensions.get('window').width);
   const { theme } = useContext(ThemeContext);
   const styles = StyleSheet.create({
-    container: {
-      maxHeight: screenWidth / 6,
+    dateStrip: {
+      color: theme.colors.quaternary ,
+      paddingTop: 10,
+      paddingBottom: 10,
+      height: 70,
+      backgroundColor: theme.colors.primary
     },
-    tile: {
-      marginRight: 1,
-      marginLeft: 1,
-      width: screenWidth / 6,
-      height: screenWidth / 6,
-      backgroundColor: theme.colors.primary,
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
+    dateNameStyle: {
+      color: "white"
+    }
   });
 
-  const displayedDates = [];
-  let i = 30;
-  while (i) {
-    displayedDates.push(i);
-    i--;
-  }
   return (
-    <ScrollView style={styles.container} horizontal>
-      {displayedDates.map(i => (
-        <View key={i.toString()} style={styles.tile}>
-          <Text>Feb</Text>
-          <Text>{i}</Text>
-        </View>
-      ))}
-    </ScrollView>
+    <>
+      <CalendarStrip
+        showMonth={true}
+        style={styles.dateStrip}
+        dateNameStyle={{ color: theme.colors.quaternary }}
+        dateNumberStyle={{ color: theme.colors.quaternary }}
+        highlightDateNumberStyle={{ color: theme.colors.quinary }}
+        highlightDateNameStyle={{ color: theme.colors.quinary }}
+
+      />
+    </>
   );
 };
 export default Calender;
