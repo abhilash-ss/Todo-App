@@ -19,7 +19,7 @@ export default function TodoItem({ item, pressHandler }: TIProps) {
     <TouchableOpacity onPress={() => pressHandler(item.key)}>
       <View style={styles.item}>
         <MaterialIcons name="delete" size={32} />
-        <Text style={styles.itemText}>{item.text}</Text>
+        <Text style={styles.itemText}>{item.title}</Text>
       </View>
     </TouchableOpacity>
   );
