@@ -4,7 +4,8 @@ export const themes: Ithemes = {
             primary: "#ff5f08",//orange,
             secondary: "#747474", //dark grey,
             teraitary: "#d7d7d7", //grey,
-            quaternary: "ffffff" //white
+            quaternary: "#ffffff", //white,
+            quinary: "#000",
         },
         font: {
             primary: "raleway"
@@ -15,7 +16,8 @@ export const themes: Ithemes = {
             primary: "red",//orange,
             secondary: "orange", //dark grey,
             teraitary: "blue", //grey,
-            quaternary: "black" //white
+            quaternary: "black", //white,
+            quinary: "#fff"
         },
         font: {
             primary: "uni-sans"
@@ -29,6 +31,7 @@ interface Itheme {
         secondary: string,
         teraitary: string,
         quaternary: string,
+        quinary:string
     },
     font: {
         primary: string,
