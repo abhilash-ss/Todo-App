@@ -3688,6 +3688,11 @@ mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
+moment@^2.17.1, moment@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+
 morgan@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/morgan/-/morgan-1.9.1.tgz#0a8d16734a1d9afbc824b99df87e738e58e2da59"
@@ -4258,6 +4263,20 @@ react-is@^16.12.0, react-is@^16.8.1, react-is@^16.8.4:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
   integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
+
+react-lifecycles-compat@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-2.0.2.tgz#00a23160eec17a43b94dd74f95d44a1a2c3c5ec1"
+  integrity sha512-BPksUj7VMAAFhcCw79sZA0Ow/LTAEjs3Sio1AQcuwLeOP+ua0f/08Su2wyiW+JjDDH6fRqNy3h5CLXh21u1mVg==
+
+react-native-calendar-strip@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/react-native-calendar-strip/-/react-native-calendar-strip-1.4.1.tgz#22d41ab121da070fcc2b9c268da38f7451b66f63"
+  integrity sha512-8t3mB29sMestJNdp1/94WmjVsY8vzzEhVdlqTqmRz5WedUdP3Pk9vJ/o3iiosuRM2RVV8ONe72yMcdAn3M39Pw==
+  dependencies:
+    moment "^2.17.1"
+    prop-types "^15.6.0"
+    react-lifecycles-compat "^2.0.0"
 
 react-native-gesture-handler@~1.5.0:
   version "1.5.6"
