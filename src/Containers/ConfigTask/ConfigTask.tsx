@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Platform,
+  AsyncStorage,
 } from 'react-native';
 import DateTimePicker, {
   AndroidEvent,
@@ -49,16 +50,45 @@ export default function ConfigTask(props: ConfigTaskProps) {
     showMode('time');
   };
 
+  const saveTask = async () => {
+    const newTask = {
+      title: task,
+      description: description,
+      date: date,
+    };
+    let taskList = [];
+    try {
+      const response = await AsyncStorage.getItem('taskList');
+      // for (let i = 0; i < response.length; i++) {
+      //   await AsyncStorage.removeItem('taskList');
+      // }
+      if (response) {
+        console.log('=============');
+        // console.log(JSON.parse(response));
+        taskList = JSON.parse(response);
+        console.log(taskList);
+      }
+    } catch (error) {
+      console.log('error on getItem', error);
+    }
+
+    try {
+      taskList.push(newTask);
+      // console.log('cjhec', taskList);
+      // console.log(taskList);
+      await AsyncStorage.setItem('taskList', JSON.stringify(taskList));
+    } catch {
+      alert('something went wrong!');
+    }
+    // AsyncStorage.getAllKeys((err, keys) => console.log('keys', keys));
+  };
+
   useEffect(() => {
     const { navigation } = props;
     navigation.setOptions({
       headerRight: () => (
         <View style={{ paddingRight: 10 }}>
-          <Button
-            onPress={e => alert('its working')}
-            title="Save"
-            color="blue"
-          />
+          <Button onPress={() => saveTask()} title="Save" color="blue" />
         </View>
       ),
     });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,10 +7,11 @@ import {
   Alert,
   TouchableWithoutFeedback,
   Keyboard,
+  AsyncStorage,
 } from 'react-native';
 import Header from '../../components/Header/Header';
 import TodoItem from '../../components/TodoItem/TodoItem';
-import AddTodo from '../../components/AddTodo/AddTodo';
+// import AddTodo from '../../components/AddTodo/AddTodo';
 import Calender from '../../components/Calender/Calender';
 
 // import Drawer from '../Drawer/Drawer';
@@ -25,9 +26,9 @@ interface HProps {
 export default function Home(props: HProps) {
   const { navigation } = props;
   const [todo, setTodos] = useState<TodoProps[]>([
-    { text: 'one', key: '1' },
-    { text: 'two', key: '2' },
-    { text: 'three', key: '3' },
+    { title: 'one', key: '1' },
+    { title: 'two', key: '2' },
+    { title: 'three', key: '3' },
   ]);
 
   const pressHandler = (key: TodoProps['key']) => {
@@ -51,6 +52,22 @@ export default function Home(props: HProps) {
     }
   };
 
+  const fetchTaskList = async () => {
+    try {
+      const response = await AsyncStorage.getItem('taskList');
+      if (response) {
+        setTodos(JSON.parse(response));
+      }
+    } catch {
+      console.log('error');
+    }
+    return [];
+  };
+
+  useEffect(() => {
+    fetchTaskList();
+  });
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -62,7 +79,7 @@ export default function Home(props: HProps) {
         <Calender />
         <View style={styles.content}>
           {/* TO DO : add today task list and notifications */}
-          <AddTodo submitHandler={submitHandler} />
+          {/* <AddTodo submitHandler={submitHandler} /> */}
           <CategoryCard title="Missed Tasks" verticalBarColor={'#E74535'}>
             <View>
               <FlatList
@@ -71,6 +88,7 @@ export default function Home(props: HProps) {
                   <TodoItem item={item} pressHandler={pressHandler} />
                 )}
               />
+              {}
             </View>
           </CategoryCard>
           <CategoryCard title="Upcoming Tasks" verticalBarColor={'#ED5D36'}>
