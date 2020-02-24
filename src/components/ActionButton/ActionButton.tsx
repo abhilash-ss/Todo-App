@@ -10,13 +10,8 @@ export interface ActionButtonProps {
 export default function ActionButton(props: ActionButtonProps) {
   return (
     <View style={styles.actionButton}>
-      <TouchableOpacity>
-        <Ionicons
-          name="md-add-circle"
-          size={70}
-          color="coral"
-          onPress={() => props.onClick()}
-        />
+      <TouchableOpacity onPress={() => props.onClick()}>
+        <Ionicons name="md-add-circle" size={70} color="coral" />
       </TouchableOpacity>
     </View>
   );

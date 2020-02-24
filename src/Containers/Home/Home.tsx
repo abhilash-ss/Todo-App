@@ -94,7 +94,11 @@ export default function Home(props: HProps) {
             </View>
           </CategoryCard>
         </View>
-        <ActionButton onClick={() => navigation.navigate('ConfigTask')} />
+        <ActionButton
+          onClick={() => {
+            navigation.navigate('ConfigTask');
+          }}
+        />
       </View>
     </TouchableWithoutFeedback>
   );
