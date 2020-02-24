@@ -13,6 +13,7 @@ import DateTimePicker, {
   AndroidEvent,
   Event,
 } from '@react-native-community/datetimepicker';
+import moment from 'moment';
 interface ConfigTaskProps {
   isVisible?: boolean;
 }
@@ -57,13 +58,25 @@ export default function ConfigTask(props: ConfigTaskProps) {
           placeholder="Task description..."
           onChangeText={e => console.log(e)}
         />
+        <Text>Due date</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Choose date..."
+          value={moment(date)
+            .subtract(10, 'days')
+            .calendar()}
+          onTouchStart={showDatepicker}
+          // onChange={() => console.log('onChange')}
+        />
+        <Text>Due time</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Choose time..."
+          value={moment().format('LT')}
+          onTouchStart={showTimepicker}
+          // onChange={() => console.log('onChange')}
+        />
         <View>
-          <View>
-            <Button onPress={showDatepicker} title="Show date picker!" />
-          </View>
-          <View>
-            <Button onPress={showTimepicker} title="Show time picker!" />
-          </View>
           {show && (
             <DateTimePicker
               testID="dateTimePicker"
