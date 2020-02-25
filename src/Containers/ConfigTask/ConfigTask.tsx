@@ -48,6 +48,7 @@ export default function ConfigTask(props: ConfigTaskProps) {
 
   const saveTask = async (navigation: any) => {
     // TO DO: Fix types
+    console.log(task);
     if (task.length < 3) {
       Alert.alert('OOPS!', 'Todos must be 3 chars long', [
         {
@@ -105,7 +106,7 @@ export default function ConfigTask(props: ConfigTaskProps) {
       },
       headerTintColor: '#fff',
     });
-  }, []);
+  });
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
