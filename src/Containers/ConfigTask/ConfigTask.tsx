@@ -6,6 +6,7 @@ import {
   TextInput,
   Button,
   TouchableWithoutFeedback,
+  TouchableHighlight,
   Keyboard,
   Platform,
   AsyncStorage,
@@ -97,13 +98,18 @@ export default function ConfigTask(props: ConfigTaskProps) {
     navigation.setOptions({
       headerRight: () => (
         <View style={{ paddingRight: 10 }}>
-          <Button
+          <TouchableHighlight
+            style={styles.button}
             onPress={() => saveTask(navigation)}
-            title="Save"
-            color="blue"
-          />
+          >
+            <Text style={styles.buttonLabel}>SAVE</Text>
+          </TouchableHighlight>
         </View>
       ),
+      headerStyle: {
+        backgroundColor: '#79be53',
+      },
+      headerTintColor: '#fff',
     });
   });
 
@@ -170,5 +176,20 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
+  },
+  button: {
+    alignItems: 'center',
+    // backgroundColor: '#DDDDDD',
+    // padding: 5,
+    borderColor: '#fff',
+    borderWidth: 1,
+    borderRadius: 10,
+  },
+  buttonLabel: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    margin: 10,
+    color: '#fff',
   },
 });
