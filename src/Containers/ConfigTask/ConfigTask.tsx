@@ -4,7 +4,6 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   TouchableWithoutFeedback,
   TouchableHighlight,
   Keyboard,
@@ -16,6 +15,7 @@ import DateTimePicker, {
   AndroidEvent,
   Event,
 } from '@react-native-community/datetimepicker';
+import { Foundation } from '@expo/vector-icons';
 import moment from 'moment';
 interface ConfigTaskProps {
   navigation: {
@@ -34,23 +34,16 @@ export default function ConfigTask(props: ConfigTaskProps) {
   const [show, setShow] = useState(false);
 
   const onChange = (event: Event | AndroidEvent, selectedDate?: Date) => {
-    const currentDate = selectedDate || date;
-
-    setDate(currentDate);
+    const { type } = event;
+    if (type === 'set' && selectedDate) {
+      setDate(selectedDate);
+    }
     setShow(Platform.OS === 'ios' ? true : false);
   };
 
   const showMode = (currentMode: 'date' | 'time') => {
     setShow(true);
     setMode(currentMode);
-  };
-
-  const showDatepicker = () => {
-    showMode('date');
-  };
-
-  const showTimepicker = () => {
-    showMode('time');
   };
 
   const saveTask = async (navigation: any) => {
@@ -106,12 +99,13 @@ export default function ConfigTask(props: ConfigTaskProps) {
           </TouchableHighlight>
         </View>
       ),
+      headerTitle: 'New Task',
       headerStyle: {
         backgroundColor: '#79be53',
       },
       headerTintColor: '#fff',
     });
-  });
+  }, []);
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -128,24 +122,24 @@ export default function ConfigTask(props: ConfigTaskProps) {
           value={description}
           onChangeText={value => setDescription(value)}
         />
-        <Text>Due date</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Choose date..."
-          value={moment(date)
-            .subtract(10, 'days')
-            .calendar()}
-          onTouchStart={showDatepicker}
-          // onChange={() => console.log('onChange')}
-        />
-        <Text>Due time</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Choose time..."
-          value={moment().format('LT')}
-          onTouchStart={showTimepicker}
-          // onChange={() => console.log('onChange')}
-        />
+
+        <View style={styles.dateTimeContainer}>
+          <TouchableHighlight onPress={() => showMode('date')}>
+            <View style={styles.dateTimeField}>
+              <Foundation name="calendar" size={32} color="green" />
+              <Text style={styles.dateTimeText}>{moment(date).calendar()}</Text>
+            </View>
+          </TouchableHighlight>
+          <TouchableHighlight onPress={() => showMode('time')}>
+            <View style={styles.dateTimeField}>
+              <Foundation name="clock" size={32} color="green" />
+              <Text style={styles.dateTimeText}>
+                {moment(date).format('LT')}
+              </Text>
+            </View>
+          </TouchableHighlight>
+        </View>
+
         <View>
           {show && (
             <DateTimePicker
@@ -170,12 +164,27 @@ const styles = StyleSheet.create({
     padding: 40,
     backgroundColor: '#fff',
   },
+  dateTimeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+  },
+  dateTimeField: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingRight: 20,
+  },
+  dateTimeText: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginLeft: 10,
+  },
   input: {
-    marginBottom: 10,
+    marginBottom: 20,
     paddingHorizontal: 0,
     paddingVertical: 6,
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    borderBottomColor: '#79be53',
   },
   button: {
     alignItems: 'center',
