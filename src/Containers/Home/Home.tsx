@@ -39,21 +39,6 @@ export default function Home(props: HProps) {
     storeTaskList(updatedList);
   };
 
-  // const submitHandler = (text: string) => {
-  //   if (text.length > 3) {
-  //     setTodos(prevTodos => {
-  //       return [{ text: text, key: Math.random().toString() }, ...prevTodos];
-  //     });
-  //   } else {
-  //     Alert.alert('OOPS!', 'Todos must be 3 chars long', [
-  //       {
-  //         text: 'OK',
-  //         onPress: () => console.log('alert closed'),
-  //       },
-  //     ]);
-  //   }
-  // };
-
   const storeTaskList = async (todoList: TodoProps[]) => {
     try {
       await AsyncStorage.setItem('taskList', JSON.stringify(todoList));

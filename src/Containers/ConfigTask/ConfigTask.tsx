@@ -9,6 +9,7 @@ import {
   Keyboard,
   Platform,
   AsyncStorage,
+  Alert,
 } from 'react-native';
 import DateTimePicker, {
   AndroidEvent,
@@ -18,6 +19,7 @@ import moment from 'moment';
 interface ConfigTaskProps {
   navigation: {
     setOptions(options: Partial<{}>): void;
+    navigate: (param: string) => {};
   };
 }
 
@@ -50,7 +52,17 @@ export default function ConfigTask(props: ConfigTaskProps) {
     showMode('time');
   };
 
-  const saveTask = async () => {
+  const saveTask = async (navigation: any) => {
+    // TO DO: Fix types
+    if (task.length < 3) {
+      Alert.alert('OOPS!', 'Todos must be 3 chars long', [
+        {
+          text: 'OK',
+          onPress: () => console.log('alert closed'),
+        },
+      ]);
+      return;
+    }
     const newTask = {
       key: new Date().getUTCMilliseconds(),
       title: task,
@@ -64,10 +76,7 @@ export default function ConfigTask(props: ConfigTaskProps) {
       //   await AsyncStorage.removeItem('taskList');
       // }
       if (response) {
-        console.log('=============');
-        // console.log(JSON.parse(response));
         taskList = JSON.parse(response);
-        console.log(taskList);
       }
     } catch (error) {
       console.log('error on getItem', error);
@@ -75,9 +84,8 @@ export default function ConfigTask(props: ConfigTaskProps) {
 
     try {
       taskList.push(newTask);
-      // console.log('cjhec', taskList);
-      // console.log(taskList);
       await AsyncStorage.setItem('taskList', JSON.stringify(taskList));
+      navigation.navigate('Home');
     } catch {
       alert('something went wrong!');
     }
@@ -89,7 +97,11 @@ export default function ConfigTask(props: ConfigTaskProps) {
     navigation.setOptions({
       headerRight: () => (
         <View style={{ paddingRight: 10 }}>
-          <Button onPress={() => saveTask()} title="Save" color="blue" />
+          <Button
+            onPress={() => saveTask(navigation)}
+            title="Save"
+            color="blue"
+          />
         </View>
       ),
     });
