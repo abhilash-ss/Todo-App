@@ -32,23 +32,33 @@ export default function Home(props: HProps) {
   ]);
 
   const pressHandler = (key: TodoProps['key']) => {
-    setTodos(prevTodos => {
-      return prevTodos.filter(todo => todo.key !== key);
-    });
+    // setTodos(prevTodos => {
+    //   return prevTodos.filter(todo => todo.key !== key);
+    // });
+    const updatedList: TodoProps[] = todo.filter(task => task.key !== key);
+    storeTaskList(updatedList);
   };
 
-  const submitHandler = (text: string) => {
-    if (text.length > 3) {
-      setTodos(prevTodos => {
-        return [{ text: text, key: Math.random().toString() }, ...prevTodos];
-      });
-    } else {
-      Alert.alert('OOPS!', 'Todos must be 3 chars long', [
-        {
-          text: 'OK',
-          onPress: () => console.log('alert closed'),
-        },
-      ]);
+  // const submitHandler = (text: string) => {
+  //   if (text.length > 3) {
+  //     setTodos(prevTodos => {
+  //       return [{ text: text, key: Math.random().toString() }, ...prevTodos];
+  //     });
+  //   } else {
+  //     Alert.alert('OOPS!', 'Todos must be 3 chars long', [
+  //       {
+  //         text: 'OK',
+  //         onPress: () => console.log('alert closed'),
+  //       },
+  //     ]);
+  //   }
+  // };
+
+  const storeTaskList = async (todoList: TodoProps[]) => {
+    try {
+      await AsyncStorage.setItem('taskList', JSON.stringify(todoList));
+    } catch {
+      alert('something went wrong!');
     }
   };
 

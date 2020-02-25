@@ -52,6 +52,7 @@ export default function ConfigTask(props: ConfigTaskProps) {
 
   const saveTask = async () => {
     const newTask = {
+      key: new Date().getUTCMilliseconds(),
       title: task,
       description: description,
       date: date,
