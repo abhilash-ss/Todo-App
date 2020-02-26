@@ -18,7 +18,7 @@ export default function TodoItem({ item, pressHandler }: TIProps) {
   return (
     <TouchableOpacity onPress={() => pressHandler(item.key)}>
       <View style={styles.item}>
-        <MaterialIcons name="delete" size={32} />
+        {/* <MaterialIcons name="delete" size={32} /> */}
         <Text style={styles.itemText}>{item.title}</Text>
       </View>
     </TouchableOpacity>
@@ -27,15 +27,17 @@ export default function TodoItem({ item, pressHandler }: TIProps) {
 
 const styles = StyleSheet.create({
   item: {
-    padding: 16,
-    marginVertical: 8,
-    borderColor: '#bbb',
+    padding: 5,
+    marginVertical: 1,
+    backgroundColor: '#d7d7d7',
+    borderColor: '#d7d7d7',
     borderWidth: 1,
-    borderStyle: 'dashed',
-    borderRadius: 10,
     flexDirection: 'row',
   },
   itemText: {
-    marginLeft: 10,
+    // marginLeft: 10,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#747474',
   },
 });

@@ -11,10 +11,7 @@ import {
 } from 'react-native';
 import Header from '../../components/Header/Header';
 import TodoItem from '../../components/TodoItem/TodoItem';
-// import AddTodo from '../../components/AddTodo/AddTodo';
 import Calender from '../../components/Calender/Calender';
-
-// import Drawer from '../Drawer/Drawer';
 import ActionButton from '../../components/ActionButton/ActionButton';
 import CategoryCard from '../../components/CategoryCard/CategoryCard';
 import { TodoProps } from '../../utils/Interfaces/todo';
@@ -73,8 +70,6 @@ export default function Home(props: HProps) {
         <Header navigation={navigation} />
         <Calender />
         <View style={styles.content}>
-          {/* TO DO : add today task list and notifications */}
-          {/* <AddTodo submitHandler={submitHandler} /> */}
           <CategoryCard title="Missed Tasks" verticalBarColor={'#E74535'}>
             <View>
               <FlatList
@@ -124,6 +119,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+    marginVertical: 20,
   },
   list: {
     flex: 1,
