@@ -54,7 +54,7 @@ export default function CategoryCard({
 
       <Animated.View style={{ ...styles.listContainer, maxHeight }}>
         {children}
-        <Image source={backgroungImage} />
+        <Image style={styles.image} source={backgroungImage} />
       </Animated.View>
     </View>
   );
@@ -95,5 +95,9 @@ const styles = StyleSheet.create({
   },
   container: {
     marginVertical: 5,
+  },
+  image: {
+    resizeMode: 'contain',
+    // resizeMethod: 'auto',
   },
 });
