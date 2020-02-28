@@ -6,6 +6,7 @@ import {
   TouchableHighlight,
   Animated,
   Image,
+  ShadowPropTypesIOS,
 } from 'react-native';
 import backgroungImage from '../../../assets/collapse-bkg.jpeg';
 
@@ -13,15 +14,23 @@ interface CCProps {
   title: string;
   children: ReactNode;
   verticalBarColor: string;
+  selected?: boolean;
 }
 
 export default function CategoryCard({
   title,
   children,
   verticalBarColor,
+  selected,
 }: CCProps) {
   const [maxHeight] = useState(new Animated.Value(0));
   const [expanded, setExpanded] = useState<Boolean>(false);
+
+  useEffect(() => {
+    if (selected) {
+      setExpanded(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (expanded) {
