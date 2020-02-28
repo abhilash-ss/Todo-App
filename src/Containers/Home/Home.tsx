@@ -77,6 +77,7 @@ export default function Home(props: HProps) {
                 renderItem={({ item }) => (
                   <TodoItem item={item} pressHandler={pressHandler} />
                 )}
+                keyExtractor={item => item.key.toString()}
               />
               {}
             </View>
@@ -88,6 +89,7 @@ export default function Home(props: HProps) {
                 renderItem={({ item }) => (
                   <TodoItem item={item} pressHandler={pressHandler} />
                 )}
+                keyExtractor={item => item.key.toString()}
               />
             </View>
           </CategoryCard>
@@ -98,6 +100,7 @@ export default function Home(props: HProps) {
                 renderItem={({ item }) => (
                   <TodoItem item={item} pressHandler={pressHandler} />
                 )}
+                keyExtractor={item => item.key.toString()}
               />
             </View>
           </CategoryCard>
