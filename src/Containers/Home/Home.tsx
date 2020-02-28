@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,12 +9,14 @@ import {
   Keyboard,
   AsyncStorage,
 } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import Header from '../../components/Header/Header';
 import TodoItem from '../../components/TodoItem/TodoItem';
 import Calender from '../../components/Calender/Calender';
 import ActionButton from '../../components/ActionButton/ActionButton';
 import CategoryCard from '../../components/CategoryCard/CategoryCard';
 import { TodoProps } from '../../utils/Interfaces/todo';
+import CategoryCollpase from '../../components/CategoryCollapse/CategoryCollapse';
 import moment from 'moment';
 
 interface HProps {
@@ -24,14 +26,11 @@ interface HProps {
 export default function Home(props: HProps) {
   const { navigation } = props;
   const [todo, setTodos] = useState<TodoProps[]>([]);
-  const [todayTask, setTodayTask] = useState<TodoProps[]>([]);
 
   const pressHandler = (key: TodoProps['key']) => {
-    // setTodos(prevTodos => {
-    //   return prevTodos.filter(todo => todo.key !== key);
-    // });
     const updatedList: TodoProps[] = todo.filter(task => task.key !== key);
     storeTaskList(updatedList);
+    fetchTaskList();
   };
 
   const storeTaskList = async (todoList: TodoProps[]) => {
@@ -47,16 +46,6 @@ export default function Home(props: HProps) {
       const response = await AsyncStorage.getItem('taskList');
       if (response) {
         setTodos(JSON.parse(response));
-        const todo = JSON.parse(response);
-        const today = moment().format('DD-MM-YYYY');
-        let task: TodoProps[] = [];
-        todo.map((td: TodoProps) => {
-          const todoDate = moment(td.date).format('DD-MM-YYYY');
-          if (todoDate === today) {
-            task.push(td);
-          }
-        });
-        setTodayTask(task);
       }
     } catch {
       console.log('error');
@@ -66,7 +55,28 @@ export default function Home(props: HProps) {
 
   useEffect(() => {
     fetchTaskList();
-  }, [todo.length]);
+    console.log('todoTask in useEffect', todo.length);
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchTaskList();
+    }, []),
+  );
+
+  const getTodayTasks = () => {
+    let task: TodoProps[] = [];
+    const today = moment().format('DD-MM-YYYY');
+
+    todo.map((td: TodoProps) => {
+      const todoDate = moment(td.date).format('DD-MM-YYYY');
+      if (todoDate === today) {
+        task.push(td);
+      }
+    });
+
+    return task;
+  };
 
   return (
     <TouchableWithoutFeedback
@@ -78,56 +88,42 @@ export default function Home(props: HProps) {
         <Header navigation={navigation} />
         <Calender />
         <View style={styles.content}>
-          <CategoryCard
-            title="Today Tasks!"
-            verticalBarColor={'#E74535'}
-            selected={true}
-          >
-            <View>
-              <FlatList
-                data={todayTask}
-                renderItem={({ item }) => (
-                  <TodoItem item={item} pressHandler={pressHandler} />
-                )}
-                keyExtractor={item => item.key.toString()}
-              />
-              {}
-            </View>
-          </CategoryCard>
-          <CategoryCard title="Missed Tasks" verticalBarColor={'#E74535'}>
-            <View>
-              <FlatList
-                data={todo}
-                renderItem={({ item }) => (
-                  <TodoItem item={item} pressHandler={pressHandler} />
-                )}
-                keyExtractor={item => item.key.toString()}
-              />
-              {}
-            </View>
-          </CategoryCard>
-          <CategoryCard title="Upcoming Tasks" verticalBarColor={'#ED5D36'}>
-            <View>
-              <FlatList
-                data={todo}
-                renderItem={({ item }) => (
-                  <TodoItem item={item} pressHandler={pressHandler} />
-                )}
-                keyExtractor={item => item.key.toString()}
-              />
-            </View>
-          </CategoryCard>
-          <CategoryCard title="Done Tasks" verticalBarColor={'#336806'}>
-            <View>
-              <FlatList
-                data={todo}
-                renderItem={({ item }) => (
-                  <TodoItem item={item} pressHandler={pressHandler} />
-                )}
-                keyExtractor={item => item.key.toString()}
-              />
-            </View>
-          </CategoryCard>
+          <CategoryCollpase
+            items={[
+              {
+                key: '0',
+                title: 'Today Tasks!',
+                uiType: '#E74535',
+                selected: true,
+                data: getTodayTasks(),
+                onClick: pressHandler,
+              },
+              {
+                key: '1',
+                title: 'Missed Tasks',
+                uiType: '#E74535',
+                selected: false,
+                data: getTodayTasks(),
+                onClick: pressHandler,
+              },
+              {
+                key: '2',
+                title: 'Upcoming Tasks',
+                uiType: '#E74535',
+                selected: false,
+                data: getTodayTasks(),
+                onClick: pressHandler,
+              },
+              {
+                key: '3',
+                title: 'Done Tasks',
+                uiType: '#E74535',
+                selected: false,
+                data: getTodayTasks(),
+                onClick: pressHandler,
+              },
+            ]}
+          />
         </View>
         <ActionButton
           onClick={() => {
