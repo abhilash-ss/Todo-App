@@ -78,6 +78,42 @@ export default function Home(props: HProps) {
     return task;
   };
 
+  const getUpcomingTasks = () => {
+    let task: TodoProps[] = [];
+
+    todo.map((td: TodoProps) => {
+      if (moment().diff(td.date) > 0) {
+        task.push(td);
+      }
+    });
+
+    return task;
+  };
+
+  const getMissedTasks = () => {
+    let task: TodoProps[] = [];
+
+    todo.map((td: TodoProps) => {
+      if (moment().diff(td.date) < 0) {
+        task.push(td);
+      }
+    });
+
+    return task;
+  };
+
+  const getDoneTasks = () => {
+    let task: TodoProps[] = [];
+
+    todo.map((td: TodoProps) => {
+      if (moment().diff(td.date) < 0) {
+        task.push(td);
+      }
+    });
+
+    return task;
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -103,7 +139,7 @@ export default function Home(props: HProps) {
                 title: 'Missed Tasks',
                 uiType: '#E74535',
                 selected: false,
-                data: getTodayTasks(),
+                data: getMissedTasks(),
                 onClick: pressHandler,
               },
               {
@@ -111,7 +147,7 @@ export default function Home(props: HProps) {
                 title: 'Upcoming Tasks',
                 uiType: '#E74535',
                 selected: false,
-                data: getTodayTasks(),
+                data: getUpcomingTasks(),
                 onClick: pressHandler,
               },
               {
@@ -119,7 +155,7 @@ export default function Home(props: HProps) {
                 title: 'Done Tasks',
                 uiType: '#E74535',
                 selected: false,
-                data: getTodayTasks(),
+                data: getDoneTasks(),
                 onClick: pressHandler,
               },
             ]}
