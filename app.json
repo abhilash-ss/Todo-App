@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Blank Template (TypeScript)",
+    "name": "Todo App",
     "slug": "TodoApp",
     "privacy": "public",
     "sdkVersion": "36.0.0",
@@ -20,6 +20,10 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": ""
+    "android": {
+      "package": "com.penguinos.todo",
+      "versionCode": 1
+    },
+    "description": "Todo application using react native with typescript.\nIt is just for testing the current status of the application.\nIt is still in development."
   }
 }
