@@ -11,10 +11,8 @@ import {
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import Header from '../../components/Header/Header';
-import TodoItem from '../../components/TodoItem/TodoItem';
 import Calender from '../../components/Calender/Calender';
 import ActionButton from '../../components/ActionButton/ActionButton';
-import CategoryCard from '../../components/CategoryCard/CategoryCard';
 import { TodoProps } from '../../utils/Interfaces/todo';
 import CategoryCollpase from '../../components/CategoryCollapse/CategoryCollapse';
 import moment from 'moment';
@@ -82,9 +80,22 @@ export default function Home(props: HProps) {
     let task: TodoProps[] = [];
 
     todo.map((td: TodoProps) => {
-      if (moment().diff(td.date) > 0) {
+      const todoDate = td.date;
+
+      if (moment(todoDate).year() > moment().year()) {
         task.push(td);
+      } else if (moment(todoDate).year() === moment().year()) {
+        if (moment(todoDate).month() > moment().month()) {
+          task.push(td);
+        } else if (moment(todoDate).month() === moment().month()) {
+          if (moment(todoDate).date() > moment().date()) {
+            task.push(td);
+          }
+        }
       }
+      // if (moment().diff(td.date) > 0) {
+      //   task.push(td);
+      // }
     });
 
     return task;
@@ -94,8 +105,18 @@ export default function Home(props: HProps) {
     let task: TodoProps[] = [];
 
     todo.map((td: TodoProps) => {
-      if (moment().diff(td.date) < 0) {
+      const todoDate = td.date;
+      // TODO: Need to change the logic
+      if (moment(todoDate).year() < moment().year()) {
         task.push(td);
+      } else if (moment(todoDate).year() === moment().year()) {
+        if (moment(todoDate).month() < moment().month()) {
+          task.push(td);
+        } else if (moment(todoDate).month() === moment().month()) {
+          if (moment(todoDate).date() < moment().date()) {
+            task.push(td);
+          }
+        }
       }
     });
 
@@ -129,7 +150,7 @@ export default function Home(props: HProps) {
               {
                 key: '0',
                 title: 'Today Tasks!',
-                uiType: '#E74535',
+                uiType: '#ED5D36',
                 selected: true,
                 data: getTodayTasks(),
                 onClick: pressHandler,
@@ -145,7 +166,7 @@ export default function Home(props: HProps) {
               {
                 key: '2',
                 title: 'Upcoming Tasks',
-                uiType: '#E74535',
+                uiType: '#ED5D36',
                 selected: false,
                 data: getUpcomingTasks(),
                 onClick: pressHandler,
@@ -153,7 +174,7 @@ export default function Home(props: HProps) {
               {
                 key: '3',
                 title: 'Done Tasks',
-                uiType: '#E74535',
+                uiType: '#336806',
                 selected: false,
                 data: getDoneTasks(),
                 onClick: pressHandler,
