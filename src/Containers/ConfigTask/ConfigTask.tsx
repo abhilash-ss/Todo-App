@@ -10,6 +10,7 @@ import {
   Platform,
   AsyncStorage,
   Alert,
+  CheckBox,
 } from 'react-native';
 import DateTimePicker, {
   AndroidEvent,
@@ -32,6 +33,7 @@ export default function ConfigTask(props: ConfigTaskProps) {
     'date',
   );
   const [show, setShow] = useState(false);
+  const [reminder, setReminder] = useState(false);
 
   const onChange = (event: Event | AndroidEvent, selectedDate?: Date) => {
     const { type } = event;
@@ -62,6 +64,7 @@ export default function ConfigTask(props: ConfigTaskProps) {
       title: task,
       description: description,
       date: date,
+      reminder: reminder,
     };
     let taskList = [];
     try {
@@ -140,6 +143,14 @@ export default function ConfigTask(props: ConfigTaskProps) {
           </TouchableHighlight>
         </View>
 
+        <View style={styles.checkBoxWrapper}>
+          <CheckBox
+            value={reminder}
+            onValueChange={() => setReminder(!reminder)}
+          />
+          <Text style={styles.checkBoxLabel}>Enable reminder</Text>
+        </View>
+
         <View>
           {show && (
             <DateTimePicker
@@ -200,5 +211,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
     color: '#fff',
+  },
+  checkBoxWrapper: {
+    marginTop: 15,
+    flexDirection: 'row',
+  },
+  checkBoxLabel: {
+    marginLeft: 10,
   },
 });
