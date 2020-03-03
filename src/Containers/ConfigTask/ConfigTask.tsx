@@ -38,14 +38,14 @@ export default function ConfigTask(props: ConfigTaskProps) {
   const [show, setShow] = useState(false);
   const [reminder, setReminder] = useState(false);
 
-  const localNotification = { title: 'done', body: 'done!' };
-
   const onSubmit = () => {
     Keyboard.dismiss();
     const schedulingOptions = {
       // time: new Date().getTime() + 1 * 60 * 1000,
       time: moment(date).valueOf(),
     };
+
+    const localNotification = { title: task, body: description };
     // Notifications show only when app is not active.
     // (ie. another app being used or device's screen is locked)
     Notifications.scheduleLocalNotificationAsync(
