@@ -28,31 +28,6 @@ interface ConfigTaskProps {
   };
 }
 
-const localNotification = { title: 'done', body: 'done!' };
-
-const onSubmit = text => {
-  Keyboard.dismiss();
-  const schedulingOptions = {
-    time: new Date().getTime() + 10 * 60 * 1000,
-  };
-  // Notifications show only when app is not active.
-  // (ie. another app being used or device's screen is locked)
-  Notifications.scheduleLocalNotificationAsync(
-    localNotification,
-    schedulingOptions,
-  );
-};
-const handleNotification = () => {
-  console.warn('ok! got your notif');
-};
-
-const askNotification = async () => {
-  // We need to ask for Notification permissions for ios devices
-  const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-  if (Constants.isDevice && status === 'granted')
-    console.log('Notification permissions granted.');
-};
-
 export default function ConfigTask(props: ConfigTaskProps) {
   const [task, setTask] = useState<string>('');
   const [description, setDescription] = useState<string>('');
@@ -62,6 +37,32 @@ export default function ConfigTask(props: ConfigTaskProps) {
   );
   const [show, setShow] = useState(false);
   const [reminder, setReminder] = useState(false);
+
+  const localNotification = { title: 'done', body: 'done!' };
+
+  const onSubmit = () => {
+    Keyboard.dismiss();
+    const schedulingOptions = {
+      // time: new Date().getTime() + 1 * 60 * 1000,
+      time: moment(date).valueOf(),
+    };
+    // Notifications show only when app is not active.
+    // (ie. another app being used or device's screen is locked)
+    Notifications.scheduleLocalNotificationAsync(
+      localNotification,
+      schedulingOptions,
+    );
+  };
+  const handleNotification = () => {
+    console.warn('ok! got your notif');
+  };
+
+  const askNotification = async () => {
+    // We need to ask for Notification permissions for ios devices
+    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    if (Constants.isDevice && status === 'granted')
+      console.log('Notification permissions granted.');
+  };
 
   const onChange = (event: Event | AndroidEvent, selectedDate?: Date) => {
     const { type } = event;
@@ -102,6 +103,7 @@ export default function ConfigTask(props: ConfigTaskProps) {
       // }
       if (response) {
         taskList = JSON.parse(response);
+        onSubmit();
       }
     } catch (error) {
       console.log('error on getItem', error);
@@ -116,8 +118,6 @@ export default function ConfigTask(props: ConfigTaskProps) {
     }
     // AsyncStorage.getAllKeys((err, keys) => console.log('keys', keys));
   };
-
-  const showNotification = () => {};
 
   useEffect(() => {
     askNotification();
@@ -135,8 +135,7 @@ export default function ConfigTask(props: ConfigTaskProps) {
         <View style={{ paddingRight: 10 }}>
           <TouchableHighlight
             style={styles.button}
-            // onPress={() => saveTask(navigation)}
-            onPress={() => showNotification()}
+            onPress={() => saveTask(navigation)}
           >
             <Text style={styles.buttonLabel}>SAVE</Text>
           </TouchableHighlight>
@@ -191,9 +190,9 @@ export default function ConfigTask(props: ConfigTaskProps) {
           <Text style={styles.checkBoxLabel}>Enable reminder</Text>
         </View>
 
-        <View>
+        {/* <View>
           <TextInput onChangeText={onSubmit} placeholder={'time in ms'} />
-        </View>
+        </View> */}
 
         <View>
           {show && (
