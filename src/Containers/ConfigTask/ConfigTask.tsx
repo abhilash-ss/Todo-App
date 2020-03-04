@@ -16,7 +16,7 @@ import DateTimePicker, {
   AndroidEvent,
   Event,
 } from '@react-native-community/datetimepicker';
-import { Foundation } from '@expo/vector-icons';
+import { Foundation, AntDesign } from '@expo/vector-icons';
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
@@ -140,6 +140,41 @@ export default function ConfigTask(props: ConfigTaskProps) {
     // AsyncStorage.getAllKeys((err, keys) => console.log('keys', keys));
   };
 
+  const deleteTask = async (navigation: any, key: number) => {
+    try {
+      const response = await AsyncStorage.getItem('taskList');
+      if (response) {
+        const todos = JSON.parse(response);
+        const updatedList = todos.filter((task: TaskProps) => task.key !== key);
+        try {
+          await AsyncStorage.setItem('taskList', JSON.stringify(updatedList));
+        } catch {
+          alert('something went wrong on delete!');
+        }
+        alert('task deleted successfully');
+        navigation.navigate('Home');
+      }
+    } catch {
+      alert('something went wrong on fetching data!');
+    }
+  };
+
+  const deleteAlert = (navigation: any, key: number) => {
+    Alert.alert(
+      'Are you sure ?',
+      'Delete this task ?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'OK', onPress: () => deleteTask(navigation, key) },
+      ],
+      { cancelable: false },
+    );
+  };
+
   useEffect(() => {
     askNotification();
     // If we want to do something with the notification when the app
@@ -150,7 +185,6 @@ export default function ConfigTask(props: ConfigTaskProps) {
   }, []);
 
   const setInitialState = (task: TaskProps) => {
-    console.log('---props---', task.key, typeof task.key);
     setTask(task.title);
     setDescription(task.description);
     setDate(task.date);
@@ -179,13 +213,21 @@ export default function ConfigTask(props: ConfigTaskProps) {
 
     navigation.setOptions({
       headerRight: () => (
-        <View style={{ paddingRight: 10 }}>
+        <View style={styles.header}>
           <TouchableHighlight
             style={styles.button}
             onPress={() => saveTask(navigation, key, action)}
           >
             <Text style={styles.buttonLabel}>{btnLabel}</Text>
           </TouchableHighlight>
+          {params && (
+            <TouchableHighlight
+              style={styles.delete}
+              onPress={() => deleteAlert(navigation, key)}
+            >
+              <AntDesign name="delete" size={32} color="white" />
+            </TouchableHighlight>
+          )}
         </View>
       ),
       headerTitle: 'New Task',
@@ -265,6 +307,15 @@ const styles = StyleSheet.create({
     padding: 40,
     backgroundColor: '#fff',
   },
+  header: {
+    paddingRight: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  delete: {
+    paddingLeft: 10,
+  },
   dateTimeContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -291,9 +342,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // backgroundColor: '#DDDDDD',
     // padding: 5,
-    borderColor: '#fff',
-    borderWidth: 1,
-    borderRadius: 10,
+    // borderColor: '#fff',
+    // borderWidth: 1,
+    // borderRadius: 10,
   },
   buttonLabel: {
     fontSize: 15,
