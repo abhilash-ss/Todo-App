@@ -26,9 +26,11 @@ export default function Home(props: HProps) {
   const [todo, setTodos] = useState<TodoProps[]>([]);
 
   const pressHandler = (key: TodoProps['key']) => {
-    const updatedList: TodoProps[] = todo.filter(task => task.key !== key);
-    storeTaskList(updatedList);
-    fetchTaskList();
+    // const updatedList: TodoProps[] = todo.filter(task => task.key !== key);
+    // storeTaskList(updatedList);
+    // fetchTaskList();
+    const task: TodoProps | undefined = todo.find(item => item.key === key);
+    navigation.navigate('ConfigTask', { task: task });
   };
 
   const storeTaskList = async (todoList: TodoProps[]) => {

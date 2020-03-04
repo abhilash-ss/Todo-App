@@ -26,6 +26,19 @@ interface ConfigTaskProps {
     setOptions(options: Partial<{}>): void;
     navigate: (param: string) => {};
   };
+  route: {
+    params: {
+      task: TaskProps;
+    };
+  };
+}
+
+interface TaskProps {
+  key: number;
+  title: string;
+  description: string;
+  date: Date;
+  reminder: boolean;
 }
 
 export default function ConfigTask(props: ConfigTaskProps) {
@@ -77,8 +90,9 @@ export default function ConfigTask(props: ConfigTaskProps) {
     setMode(currentMode);
   };
 
-  const saveTask = async (navigation: any) => {
+  const saveTask = async (navigation: any, key: number, action: string) => {
     // TO DO: Fix types
+    console.log('----saveTask', task);
     if (task.length < 3) {
       Alert.alert('OOPS!', 'Todos must be 3 chars long', [
         {
@@ -89,7 +103,7 @@ export default function ConfigTask(props: ConfigTaskProps) {
       return;
     }
     const newTask = {
-      key: new Date().getUTCMilliseconds(),
+      key: key,
       title: task,
       description: description,
       date: date,
@@ -112,7 +126,12 @@ export default function ConfigTask(props: ConfigTaskProps) {
     }
 
     try {
-      taskList.push(newTask);
+      if (action === 'SAVE') {
+        taskList.push(newTask);
+      } else {
+        const index = taskList.findIndex((item: TaskProps) => item.key === key);
+        taskList[index] = newTask;
+      }
       await AsyncStorage.setItem('taskList', JSON.stringify(taskList));
       navigation.navigate('Home');
     } catch {
@@ -130,16 +149,42 @@ export default function ConfigTask(props: ConfigTaskProps) {
     return () => listener.remove();
   }, []);
 
+  const setInitialState = (task: TaskProps) => {
+    console.log('---props---', task.key, typeof task.key);
+    setTask(task.title);
+    setDescription(task.description);
+    setDate(task.date);
+    setReminder(task.reminder);
+  };
+
   useEffect(() => {
-    const { navigation } = props;
+    const {
+      route: { params },
+    } = props;
+    if (params) {
+      console.log('useParams');
+      setInitialState(params.task);
+    }
+  }, []);
+
+  useEffect(() => {
+    const {
+      navigation,
+      route: { params },
+    } = props;
+
+    const btnLabel = params ? 'UPDADTE' : 'SAVE';
+    const key = params ? params.task.key : new Date().getUTCMilliseconds();
+    const action = params ? 'UPDATE' : 'SAVE';
+
     navigation.setOptions({
       headerRight: () => (
         <View style={{ paddingRight: 10 }}>
           <TouchableHighlight
             style={styles.button}
-            onPress={() => saveTask(navigation)}
+            onPress={() => saveTask(navigation, key, action)}
           >
-            <Text style={styles.buttonLabel}>SAVE</Text>
+            <Text style={styles.buttonLabel}>{btnLabel}</Text>
           </TouchableHighlight>
         </View>
       ),
