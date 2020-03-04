@@ -103,7 +103,9 @@ export default function ConfigTask(props: ConfigTaskProps) {
       // }
       if (response) {
         taskList = JSON.parse(response);
-        onSubmit();
+        if (reminder) {
+          onSubmit();
+        }
       }
     } catch (error) {
       console.log('error on getItem', error);
