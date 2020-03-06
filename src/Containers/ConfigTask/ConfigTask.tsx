@@ -187,7 +187,7 @@ export default function ConfigTask(props: ConfigTaskProps) {
   const setInitialState = (task: TaskProps) => {
     setTask(task.title);
     setDescription(task.description);
-    setDate(task.date);
+    setDate(new Date(task.date));
     setReminder(task.reminder);
   };
 
