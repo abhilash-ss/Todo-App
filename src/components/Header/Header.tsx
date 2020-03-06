@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
   header: {
     height: 80,
     paddingTop: 38,
-    backgroundColor: '#79be53',
+    // backgroundColor: '#ED5D36', //green
+    backgroundColor: '#ED5D36',
     flexDirection: 'row',
     alignItems: 'center',
   },

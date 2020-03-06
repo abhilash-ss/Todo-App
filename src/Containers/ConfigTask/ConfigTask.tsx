@@ -232,7 +232,7 @@ export default function ConfigTask(props: ConfigTaskProps) {
       ),
       headerTitle: 'New Task',
       headerStyle: {
-        backgroundColor: '#79be53',
+        backgroundColor: '#ED5D36',
       },
       headerTintColor: '#fff',
     });
@@ -257,13 +257,13 @@ export default function ConfigTask(props: ConfigTaskProps) {
         <View style={styles.dateTimeContainer}>
           <TouchableHighlight onPress={() => showMode('date')}>
             <View style={styles.dateTimeField}>
-              <Foundation name="calendar" size={32} color="green" />
+              <Foundation name="calendar" size={32} color="#ED5D36" />
               <Text style={styles.dateTimeText}>{moment(date).calendar()}</Text>
             </View>
           </TouchableHighlight>
           <TouchableHighlight onPress={() => showMode('time')}>
             <View style={styles.dateTimeField}>
-              <Foundation name="clock" size={32} color="green" />
+              <Foundation name="clock" size={32} color="#ED5D36" />
               <Text style={styles.dateTimeText}>
                 {moment(date).format('LT')}
               </Text>
@@ -336,7 +336,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: 6,
     borderBottomWidth: 1,
-    borderBottomColor: '#79be53',
+    borderBottomColor: '#ED5D36',
   },
   button: {
     alignItems: 'center',
