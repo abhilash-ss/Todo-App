@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   AsyncStorage,
+  ScrollView,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import Header from '../../components/Header/Header';
@@ -146,7 +147,7 @@ export default function Home(props: HProps) {
       <View style={styles.container}>
         <Header navigation={navigation} />
         <Calender />
-        <View style={styles.content}>
+        <ScrollView style={styles.content}>
           <CategoryCollpase
             items={[
               {
@@ -183,7 +184,7 @@ export default function Home(props: HProps) {
               },
             ]}
           />
-        </View>
+        </ScrollView>
         <ActionButton
           onClick={() => {
             navigation.navigate('ConfigTask');
