@@ -4,10 +4,14 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
+import { View, Text, StyleSheet } from 'react-native';
 
 export default function Sidebar(props: any) {
   return (
     <DrawerContentScrollView {...props}>
+      <View style={styles.header}>
+        <Text style={styles.title}>ToDoiser</Text>
+      </View>
       <DrawerItemList {...props} />
       <DrawerItem
         label="Close drawer"
@@ -24,3 +28,17 @@ export default function Sidebar(props: any) {
     </DrawerContentScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  header: {
+    height: 60,
+    backgroundColor: '#ED5D36',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    color: '#ffff',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+});

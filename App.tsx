@@ -64,9 +64,7 @@ export default function App() {
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <NavigationContainer>
-        <Drawer.Navigator
-          drawerContent={props => CustomDrawerContent({ ...props, setTheme })}
-        >
+        <Drawer.Navigator drawerContent={props => <Sidebar {...props} />}>
           <Drawer.Screen name="Home" component={root} />
         </Drawer.Navigator>
       </NavigationContainer>
