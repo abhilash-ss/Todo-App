@@ -1,49 +1,46 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
-} from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './src/Containers/Home/Home';
 import ConfigTask from './src/Containers/ConfigTask/ConfigTask';
+import Sidebar from './src/Containers/Sidebar/Sidebar';
 import { themes, Ithemes } from './src/constants/themes';
 import { ThemeContext } from './src/utils/themeContext';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
-const usedTheme: Array<keyof Ithemes> = ['light', 'dark'];
+// const usedTheme: Array<keyof Ithemes> = ['light', 'dark'];
 
 function CustomDrawerContent(props: any) {
-  const { setTheme } = props;
+  // const { setTheme } = props;
   return (
-    <DrawerContentScrollView {...props}>
-      <DrawerItemList {...props} />
-      <DrawerItem
-        label="Close drawer"
-        onPress={() => props.navigation.closeDrawer()}
-      />
-      <DrawerItem
-        label="Toggle drawer"
-        onPress={() => props.navigation.toggleDrawer()}
-      />
-      <DrawerItem
-        label="About"
-        onPress={() => props.navigation.toggleDrawer()}
-      />
-      {usedTheme.map((item, index) => (
-        <DrawerItem
-          key={index.toString()}
-          label={'set theme' + item}
-          onPress={() => {
-            setTheme(themes[item]);
-          }}
-        />
-      ))}
-    </DrawerContentScrollView>
+    <Sidebar {...props} />
+    // <DrawerContentScrollView {...props}>
+    //   <DrawerItemList {...props} />
+    //   <DrawerItem
+    //     label="Close drawer"
+    //     onPress={() => props.navigation.closeDrawer()}
+    //   />
+    //   <DrawerItem
+    //     label="Toggle drawer"
+    //     onPress={() => props.navigation.toggleDrawer()}
+    //   />
+    //   <DrawerItem
+    //     label="About"
+    //     onPress={() => props.navigation.toggleDrawer()}
+    //   />
+    //   {/* {usedTheme.map((item, index) => (
+    //     <DrawerItem
+    //       key={index.toString()}
+    //       label={'set theme' + item}
+    //       onPress={() => {
+    //         setTheme(themes[item]);
+    //       }}
+    //     />
+    //   ))} */}
+    // </DrawerContentScrollView>
   );
 }
 
