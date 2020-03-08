@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Image } from 'react-native';
 import CategoryCard from '../CategoryCard/CategoryCard';
 import { TodoProps } from '../../utils/Interfaces/todo';
 import TodoItem from '../../components/TodoItem/TodoItem';
+import backgroungImage from '../../../assets/collapse-bkg.jpeg';
 
 type list = {
   key: string;
@@ -28,16 +29,17 @@ export default function CategoryCollapse(props: CategoryCollapseProps) {
             verticalBarColor={category.uiType}
             selected={category.selected}
           >
-            <View>
-              <FlatList
-                data={category.data}
-                renderItem={({ item }) => (
-                  <TodoItem item={item} pressHandler={category.onClick} />
-                )}
-                keyExtractor={item => item.key.toString()}
-              />
-              {}
-            </View>
+            {category.data.length ? (
+              category.data.map((item: TodoProps, index: number) => (
+                <TodoItem
+                  key={index.toString()}
+                  item={item}
+                  pressHandler={category.onClick}
+                />
+              ))
+            ) : (
+              <Image source={backgroungImage} />
+            )}
           </CategoryCard>
         );
       })}

@@ -5,10 +5,7 @@ import {
   View,
   TouchableHighlight,
   Animated,
-  Image,
-  ShadowPropTypesIOS,
 } from 'react-native';
-import backgroungImage from '../../../assets/collapse-bkg.jpeg';
 
 interface CCProps {
   title: string;
@@ -63,7 +60,7 @@ export default function CategoryCard({
 
       <Animated.View style={{ ...styles.listContainer, maxHeight }}>
         {children}
-        <Image style={styles.image} source={backgroungImage} />
+        {/* <Image style={styles.image} source={backgroungImage} /> */}
       </Animated.View>
     </View>
   );
@@ -97,9 +94,7 @@ const styles = StyleSheet.create({
     color: '#747474',
   },
   titleText_expand: {
-    // paddingVertical: 10,
     fontSize: 40,
-    // fontWeight: 'bold',
     color: 'coral',
   },
   container: {
@@ -107,6 +102,5 @@ const styles = StyleSheet.create({
   },
   image: {
     resizeMode: 'contain',
-    // resizeMethod: 'auto',
   },
 });
