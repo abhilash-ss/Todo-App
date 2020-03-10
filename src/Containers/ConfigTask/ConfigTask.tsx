@@ -258,7 +258,9 @@ export default function ConfigTask(props: ConfigTaskProps) {
           <TouchableHighlight onPress={() => showMode('date')}>
             <View style={styles.dateTimeField}>
               <Foundation name="calendar" size={32} color="#ED5D36" />
-              <Text style={styles.dateTimeText}>{moment(date).calendar()}</Text>
+              <Text style={styles.dateTimeText}>
+                {moment(date).format('LL')}
+              </Text>
             </View>
           </TouchableHighlight>
           <TouchableHighlight onPress={() => showMode('time')}>
