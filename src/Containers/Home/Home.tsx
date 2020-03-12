@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   StyleSheet,
-  Text,
   View,
-  FlatList,
-  Alert,
   TouchableWithoutFeedback,
   Keyboard,
   AsyncStorage,
@@ -16,6 +13,7 @@ import Calender from '../../components/Calender/Calender';
 import ActionButton from '../../components/ActionButton/ActionButton';
 import { TodoProps } from '../../utils/Interfaces/todo';
 import CategoryCollpase from '../../components/CategoryCollapse/CategoryCollapse';
+import ModalPopUp from '../../components/ModalPopUp/ModalPopUp';
 import moment from 'moment';
 
 interface HProps {
@@ -25,6 +23,7 @@ interface HProps {
 export default function Home(props: HProps) {
   const { navigation } = props;
   const [todo, setTodos] = useState<TodoProps[]>([]);
+  const [showModal, setModal] = useState(false);
 
   const pressHandler = (key: TodoProps['key']) => {
     // const updatedList: TodoProps[] = todo.filter(task => task.key !== key);
@@ -190,6 +189,7 @@ export default function Home(props: HProps) {
             navigation.navigate('ConfigTask');
           }}
         />
+        <ModalPopUp />
       </View>
     </TouchableWithoutFeedback>
   );
