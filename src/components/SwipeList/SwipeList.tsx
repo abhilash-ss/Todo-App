@@ -4,13 +4,14 @@ import {
   Dimensions,
   StyleSheet,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
 interface SwipeListProps {
   list: any;
+  onPressEdit: Function;
 }
 //TO DO: Fix typo
 export default function SwipeList(props: SwipeListProps) {
@@ -26,8 +27,15 @@ export default function SwipeList(props: SwipeListProps) {
         keyExtractor={(item: any) => `key-${item.key}`}
         renderHiddenItem={(data, rowMap) => (
           <View key={`key${data.index}`} style={styles.rowBack}>
-            <Text>Edit</Text>
-            <Text>Done</Text>
+            <TouchableOpacity
+              style={styles.editBtn}
+              onPress={() => props.onPressEdit(data.item.key)}
+            >
+              <Text style={styles.btnText}>Edit</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.doneBtn} onPress={() => {}}>
+              <Text style={styles.btnText}>Done</Text>
+            </TouchableOpacity>
           </View>
         )}
         leftOpenValue={75}
@@ -51,6 +59,32 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#747474',
+  },
+  btnText: {
+    color: '#fff',
+    // fontSize: 20,
+    fontWeight: 'bold',
+  },
+  editBtn: {
+    marginVertical: 1.5,
+    alignItems: 'center',
+    bottom: 0,
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    width: 75,
+    backgroundColor: 'coral',
+  },
+  doneBtn: {
+    marginVertical: 1.5,
+    alignItems: 'center',
+    bottom: 0,
+    justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
+    width: 75,
+    backgroundColor: 'green',
+    right: 0,
   },
   container: {
     backgroundColor: 'white',
