@@ -9,23 +9,23 @@ import {
 } from 'react-native';
 import { SwipeListView } from 'react-native-swipe-list-view';
 
-interface SwipeListProps {}
-
+interface SwipeListProps {
+  list: any;
+}
+//TO DO: Fix typo
 export default function SwipeList(props: SwipeListProps) {
-  const testData = ['Item1', 'Item2', 'Item3', 'Item4'];
-
   return (
     <View>
       <SwipeListView
-        data={testData}
-        renderItem={(data, rowMap) => (
-          <View key={rowMap.toString()} style={styles.item}>
-            {console.log('----data---', data)}
-            <Text style={styles.itemText}>{data.item}</Text>
+        data={props.list}
+        renderItem={(data: any, rowMap) => (
+          <View key={`key${data.index}`} style={styles.item}>
+            <Text style={styles.itemText}>{data.item.title}</Text>
           </View>
         )}
+        keyExtractor={(item: any) => `key-${item.key}`}
         renderHiddenItem={(data, rowMap) => (
-          <View key={rowMap.toString()} style={styles.rowBack}>
+          <View key={`key${data.index}`} style={styles.rowBack}>
             <Text>Edit</Text>
             <Text>Done</Text>
           </View>
