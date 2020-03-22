@@ -34,13 +34,13 @@ export default function CategoryCard({
   useEffect(() => {
     if (expanded) {
       Animated.timing(maxHeight, {
-        toValue: 300,
-        duration: 300,
+        toValue: 200,
+        duration: 200,
       }).start();
     } else {
       Animated.timing(maxHeight, {
         toValue: 0,
-        duration: 300,
+        duration: 200,
       }).start();
     }
   }, [expanded]);

@@ -1,14 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   StyleSheet,
-  Text,
   View,
-  FlatList,
-  Alert,
   TouchableWithoutFeedback,
   Keyboard,
   AsyncStorage,
-  ScrollView,
   SafeAreaView,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
@@ -148,7 +144,7 @@ export default function Home(props: HProps) {
       <View style={styles.container}>
         <Header navigation={navigation} />
         <Calender />
-        <ScrollView style={styles.content} nestedScrollEnabled={true}>
+        <SafeAreaView style={styles.content}>
           <CategoryCollpase
             items={[
               {
@@ -185,7 +181,7 @@ export default function Home(props: HProps) {
               },
             ]}
           />
-        </ScrollView>
+        </SafeAreaView>
         <ActionButton
           onClick={() => {
             navigation.navigate('ConfigTask');
