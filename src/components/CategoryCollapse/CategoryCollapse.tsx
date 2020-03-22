@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Image } from 'react-native';
 import CategoryCard from '../CategoryCard/CategoryCard';
 import { TodoProps } from '../../utils/Interfaces/todo';
@@ -19,6 +19,10 @@ export interface CategoryCollapseProps {
 }
 
 export default function CategoryCollapse(props: CategoryCollapseProps) {
+  const [selectedId, setSelected] = useState<Number>(0);
+
+  // useEffect(() => {}, [selectedId]);
+
   const { items } = props;
   return (
     <View>
@@ -26,9 +30,11 @@ export default function CategoryCollapse(props: CategoryCollapseProps) {
         return (
           <CategoryCard
             key={index.toString()}
+            id={index}
             title={category.title}
             verticalBarColor={category.uiType}
-            selected={category.selected}
+            selected={selectedId === index}
+            onPress={(id: Number) => setSelected(id)}
           >
             <SwipeList list={category.data} onPressEdit={category.onClick} />
             {/* {category.data.length ? (

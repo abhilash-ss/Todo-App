@@ -11,7 +11,9 @@ interface CCProps {
   title: string;
   children: ReactNode;
   verticalBarColor: string;
-  selected?: boolean;
+  selected: boolean;
+  onPress: Function;
+  id: Number;
 }
 
 export default function CategoryCard({
@@ -19,15 +21,15 @@ export default function CategoryCard({
   children,
   verticalBarColor,
   selected,
+  onPress,
+  id,
 }: CCProps) {
   const [maxHeight] = useState(new Animated.Value(0));
   const [expanded, setExpanded] = useState<Boolean>(false);
 
   useEffect(() => {
-    if (selected) {
-      setExpanded(true);
-    }
-  }, []);
+    setExpanded(selected);
+  }, [selected]);
 
   useEffect(() => {
     if (expanded) {
@@ -43,6 +45,12 @@ export default function CategoryCard({
     }
   }, [expanded]);
 
+  const handleOnpPress = () => {
+    if (expanded) setExpanded(false);
+    else if (selected) setExpanded(true);
+    else onPress(id);
+  };
+
   return (
     <View style={styles.container}>
       <TouchableHighlight
@@ -51,7 +59,7 @@ export default function CategoryCard({
           expanded && styles.title_expand,
         ]}
         underlayColor={'transparent'}
-        onPress={() => setExpanded(!expanded)}
+        onPress={() => handleOnpPress()}
       >
         <Text style={expanded ? styles.titleText_expand : styles.titleText}>
           {title}
