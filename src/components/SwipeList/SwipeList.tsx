@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Animated,
   Dimensions,
+  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -18,6 +19,7 @@ export default function SwipeList(props: SwipeListProps) {
   return (
     <View>
       <SwipeListView
+        nestedScrollEnabled
         data={props.list}
         renderItem={(data: any, rowMap) => (
           <View key={`key${data.index}`} style={styles.item}>

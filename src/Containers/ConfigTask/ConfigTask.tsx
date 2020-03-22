@@ -196,7 +196,6 @@ export default function ConfigTask(props: ConfigTaskProps) {
       route: { params },
     } = props;
     if (params) {
-      console.log('useParams');
       setInitialState(params.task);
     }
   }, []);

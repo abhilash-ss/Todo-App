@@ -3,6 +3,7 @@ import { View, Image } from 'react-native';
 import CategoryCard from '../CategoryCard/CategoryCard';
 import { TodoProps } from '../../utils/Interfaces/todo';
 import TodoItem from '../../components/TodoItem/TodoItem';
+import SwipeList from '../../components/SwipeList/SwipeList';
 import backgroungImage from '../../../assets/collapse-bkg.jpeg';
 
 type list = {
@@ -29,7 +30,8 @@ export default function CategoryCollapse(props: CategoryCollapseProps) {
             verticalBarColor={category.uiType}
             selected={category.selected}
           >
-            {category.data.length ? (
+            <SwipeList list={category.data} onPressEdit={category.onClick} />
+            {/* {category.data.length ? (
               category.data.map((item: TodoProps, index: number) => (
                 <TodoItem
                   key={index.toString()}
@@ -39,7 +41,7 @@ export default function CategoryCollapse(props: CategoryCollapseProps) {
               ))
             ) : (
               <Image source={backgroungImage} />
-            )}
+            )} */}
           </CategoryCard>
         );
       })}
