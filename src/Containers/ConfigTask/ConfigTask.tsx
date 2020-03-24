@@ -127,10 +127,10 @@ export default function ConfigTask(props: ConfigTaskProps) {
 
     try {
       if (action === 'SAVE') {
-        taskList.push(newTask);
+        taskList.push({ ...newTask, status: 'todo' });
       } else {
         const index = taskList.findIndex((item: TaskProps) => item.key === key);
-        taskList[index] = newTask;
+        taskList[index] = { ...newTask, status: taskList[index].status };
       }
       await AsyncStorage.setItem('taskList', JSON.stringify(taskList));
       navigation.navigate('Home');

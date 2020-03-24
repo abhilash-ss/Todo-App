@@ -31,6 +31,14 @@ export default function Home(props: HProps) {
     navigation.navigate('ConfigTask', { task: task });
   };
 
+  const onPressDone = (key: TodoProps['key']) => {
+    console.log('done');
+    // const task:TodoProps | undefined= todo.find(item => item.key === key);
+    const index = todo.findIndex((item: TodoProps) => item.key === key);
+    // const done = { ...todo[index], status: 'done' };
+    // storeTaskList({ ...todo });
+  };
+
   const storeTaskList = async (todoList: TodoProps[]) => {
     try {
       await AsyncStorage.setItem('taskList', JSON.stringify(todoList));
@@ -127,7 +135,7 @@ export default function Home(props: HProps) {
     let task: TodoProps[] = [];
 
     todo.map((td: TodoProps) => {
-      if (moment().diff(td.date) < 0) {
+      if (td.status === 'done') {
         task.push(td);
       }
     });
@@ -153,7 +161,8 @@ export default function Home(props: HProps) {
                 uiType: '#ED5D36',
                 selected: true,
                 data: getTodayTasks(),
-                onClick: pressHandler,
+                onPressEdit: pressHandler,
+                onPressDone,
               },
               {
                 key: '1',
@@ -161,7 +170,8 @@ export default function Home(props: HProps) {
                 uiType: '#E74535',
                 selected: false,
                 data: getMissedTasks(),
-                onClick: pressHandler,
+                onPressEdit: pressHandler,
+                onPressDone,
               },
               {
                 key: '2',
@@ -169,7 +179,8 @@ export default function Home(props: HProps) {
                 uiType: '#ED5D36',
                 selected: false,
                 data: getUpcomingTasks(),
-                onClick: pressHandler,
+                onPressEdit: pressHandler,
+                onPressDone,
               },
               {
                 key: '3',
@@ -177,7 +188,8 @@ export default function Home(props: HProps) {
                 uiType: '#336806',
                 selected: false,
                 data: getDoneTasks(),
-                onClick: pressHandler,
+                onPressEdit: pressHandler,
+                onPressDone,
               },
             ]}
           />

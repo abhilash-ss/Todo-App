@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Image } from 'react-native';
 import CategoryCard from '../CategoryCard/CategoryCard';
 import { TodoProps } from '../../utils/Interfaces/todo';
-import TodoItem from '../../components/TodoItem/TodoItem';
+// import TodoItem from '../../components/TodoItem/TodoItem';
 import SwipeList from '../../components/SwipeList/SwipeList';
 import backgroungImage from '../../../assets/collapse-bkg.jpeg';
 
@@ -12,7 +12,8 @@ type list = {
   uiType: string;
   selected: boolean;
   data: Array<TodoProps>;
-  onClick: (key: TodoProps['key']) => any;
+  onPressEdit: Function;
+  onPressDone: Function;
 };
 export interface CategoryCollapseProps {
   items: Array<list>;
@@ -36,7 +37,11 @@ export default function CategoryCollapse(props: CategoryCollapseProps) {
             selected={selectedId === index}
             onPress={(id: Number) => setSelected(id)}
           >
-            <SwipeList list={category.data} onPressEdit={category.onClick} />
+            <SwipeList
+              list={category.data}
+              onPressEdit={category.onPressEdit}
+              onPressDone={category.onPressDone}
+            />
             {/* {category.data.length ? (
               category.data.map((item: TodoProps, index: number) => (
                 <TodoItem
@@ -48,6 +53,7 @@ export default function CategoryCollapse(props: CategoryCollapseProps) {
             ) : (
               <Image source={backgroungImage} />
             )} */}
+            {!category.data.length && <Image source={backgroungImage} />}
           </CategoryCard>
         );
       })}

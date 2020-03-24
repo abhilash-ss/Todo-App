@@ -13,6 +13,7 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 interface SwipeListProps {
   list: any;
   onPressEdit: Function;
+  onPressDone: Function;
 }
 //TO DO: Fix typo
 export default function SwipeList(props: SwipeListProps) {
@@ -36,7 +37,12 @@ export default function SwipeList(props: SwipeListProps) {
               <Text style={styles.btnText}>Edit</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.doneBtn} onPress={() => {}}>
-              <Text style={styles.btnText}>Done</Text>
+              <Text
+                style={styles.btnText}
+                onPress={() => props.onPressDone(data.item.key)}
+              >
+                Done
+              </Text>
             </TouchableOpacity>
           </View>
         )}
