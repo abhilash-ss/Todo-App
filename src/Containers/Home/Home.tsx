@@ -35,6 +35,10 @@ export default function Home(props: HProps) {
     console.log('done');
     // const task:TodoProps | undefined= todo.find(item => item.key === key);
     const index = todo.findIndex((item: TodoProps) => item.key === key);
+    const updatedList = Object.assign([...todo], {
+      [index]: { ...todo[index], status: 'done' },
+    });
+    storeTaskList(updatedList);
     // const done = { ...todo[index], status: 'done' };
     // storeTaskList({ ...todo });
   };
@@ -61,7 +65,8 @@ export default function Home(props: HProps) {
 
   useEffect(() => {
     fetchTaskList();
-    console.log('todoTask in useEffect', todo.length);
+    // storeTaskList([]); use when remove all tasks
+    // console.log('todoTask in useEffect', todo);
   }, []);
 
   useFocusEffect(
@@ -76,7 +81,7 @@ export default function Home(props: HProps) {
 
     todo.map((td: TodoProps) => {
       const todoDate = moment(td.date).format('DD-MM-YYYY');
-      if (todoDate === today) {
+      if (todoDate === today && td.status === 'todo') {
         task.push(td);
       }
     });
@@ -90,14 +95,16 @@ export default function Home(props: HProps) {
     todo.map((td: TodoProps) => {
       const todoDate = td.date;
 
-      if (moment(todoDate).year() > moment().year()) {
-        task.push(td);
-      } else if (moment(todoDate).year() === moment().year()) {
-        if (moment(todoDate).month() > moment().month()) {
+      if (td.status === 'todo') {
+        if (moment(todoDate).year() > moment().year()) {
           task.push(td);
-        } else if (moment(todoDate).month() === moment().month()) {
-          if (moment(todoDate).date() > moment().date()) {
+        } else if (moment(todoDate).year() === moment().year()) {
+          if (moment(todoDate).month() > moment().month()) {
             task.push(td);
+          } else if (moment(todoDate).month() === moment().month()) {
+            if (moment(todoDate).date() > moment().date()) {
+              task.push(td);
+            }
           }
         }
       }
@@ -115,14 +122,16 @@ export default function Home(props: HProps) {
     todo.map((td: TodoProps) => {
       const todoDate = td.date;
       // TODO: Need to change the logic
-      if (moment(todoDate).year() < moment().year()) {
-        task.push(td);
-      } else if (moment(todoDate).year() === moment().year()) {
-        if (moment(todoDate).month() < moment().month()) {
+      if (td.status === 'todo') {
+        if (moment(todoDate).year() < moment().year()) {
           task.push(td);
-        } else if (moment(todoDate).month() === moment().month()) {
-          if (moment(todoDate).date() < moment().date()) {
+        } else if (moment(todoDate).year() === moment().year()) {
+          if (moment(todoDate).month() < moment().month()) {
             task.push(td);
+          } else if (moment(todoDate).month() === moment().month()) {
+            if (moment(todoDate).date() < moment().date()) {
+              task.push(td);
+            }
           }
         }
       }
