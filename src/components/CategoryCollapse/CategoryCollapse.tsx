@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { View, Image } from 'react-native';
 import CategoryCard from '../CategoryCard/CategoryCard';
 import { TodoProps } from '../../utils/Interfaces/todo';
-// import TodoItem from '../../components/TodoItem/TodoItem';
 import SwipeList from '../../components/SwipeList/SwipeList';
 import backgroungImage from '../../../assets/collapse-bkg.jpeg';
 
@@ -22,8 +21,6 @@ export interface CategoryCollapseProps {
 export default function CategoryCollapse(props: CategoryCollapseProps) {
   const [selectedId, setSelected] = useState<Number>(0);
 
-  // useEffect(() => {}, [selectedId]);
-
   const { items } = props;
   return (
     <View>
@@ -42,17 +39,6 @@ export default function CategoryCollapse(props: CategoryCollapseProps) {
               onPressEdit={category.onPressEdit}
               onPressDone={category.onPressDone}
             />
-            {/* {category.data.length ? (
-              category.data.map((item: TodoProps, index: number) => (
-                <TodoItem
-                  key={index.toString()}
-                  item={item}
-                  pressHandler={category.onClick}
-                />
-              ))
-            ) : (
-              <Image source={backgroungImage} />
-            )} */}
             {!category.data.length && <Image source={backgroungImage} />}
           </CategoryCard>
         );
