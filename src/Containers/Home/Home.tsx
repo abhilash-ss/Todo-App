@@ -79,7 +79,7 @@ export default function Home(props: HProps) {
     let task: TodoProps[] = [];
     const today = moment().format('DD-MM-YYYY');
 
-    todo.map((td: TodoProps) => {
+    todo.forEach((td: TodoProps) => {
       const todoDate = moment(td.date).format('DD-MM-YYYY');
       if (todoDate === today && td.status === 'todo') {
         task.push(td);
@@ -92,7 +92,7 @@ export default function Home(props: HProps) {
   const getUpcomingTasks = () => {
     let task: TodoProps[] = [];
 
-    todo.map((td: TodoProps) => {
+    todo.forEach((td: TodoProps) => {
       const todoDate = td.date;
 
       if (td.status === 'todo') {
@@ -119,7 +119,7 @@ export default function Home(props: HProps) {
   const getMissedTasks = () => {
     let task: TodoProps[] = [];
 
-    todo.map((td: TodoProps) => {
+    todo.forEach((td: TodoProps) => {
       const todoDate = td.date;
       // TODO: Need to change the logic
       if (td.status === 'todo') {
@@ -143,7 +143,7 @@ export default function Home(props: HProps) {
   const getDoneTasks = () => {
     let task: TodoProps[] = [];
 
-    todo.map((td: TodoProps) => {
+    todo.forEach((td: TodoProps) => {
       if (td.status === 'done') {
         task.push(td);
       }
