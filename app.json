@@ -4,8 +4,12 @@
     "slug": "TodoApp",
     "privacy": "public",
     "sdkVersion": "36.0.0",
-    "platforms": ["ios", "android", "web"],
-    "version": "1.0.1",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.2",
     "orientation": "default",
     "githubUrl": "https://github.com/itsmeAB/Todo-App",
     "primaryColor": "#f4511e",
@@ -18,9 +22,12 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.penguinos.todo ",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "package": "com.penguinos.todo",
