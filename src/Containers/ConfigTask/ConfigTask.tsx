@@ -11,6 +11,7 @@ import {
   AsyncStorage,
   Alert,
   CheckBox,
+  Picker,
 } from 'react-native';
 import DateTimePicker, {
   AndroidEvent,
@@ -39,6 +40,7 @@ interface TaskProps {
   description: string;
   date: Date;
   reminder: boolean;
+  status: 'todo' | 'done';
 }
 
 export default function ConfigTask(props: ConfigTaskProps) {
@@ -50,6 +52,7 @@ export default function ConfigTask(props: ConfigTaskProps) {
   );
   const [show, setShow] = useState(false);
   const [reminder, setReminder] = useState(false);
+  const [status, setStatus] = useState('todo');
 
   const onSubmit = () => {
     Keyboard.dismiss();
@@ -108,6 +111,7 @@ export default function ConfigTask(props: ConfigTaskProps) {
       description: description,
       date: date,
       reminder: reminder,
+      status,
     };
     let taskList = [];
     try {
@@ -127,10 +131,10 @@ export default function ConfigTask(props: ConfigTaskProps) {
 
     try {
       if (action === 'SAVE') {
-        taskList.push({ ...newTask, status: 'todo' });
+        taskList.push(newTask);
       } else {
         const index = taskList.findIndex((item: TaskProps) => item.key === key);
-        taskList[index] = { ...newTask, status: taskList[index].status };
+        taskList[index] = newTask;
       }
       await AsyncStorage.setItem('taskList', JSON.stringify(taskList));
       navigation.navigate('Home');
@@ -189,6 +193,7 @@ export default function ConfigTask(props: ConfigTaskProps) {
     setDescription(task.description);
     setDate(new Date(task.date));
     setReminder(task.reminder);
+    setStatus(task.status);
   };
 
   useEffect(() => {
@@ -198,6 +203,7 @@ export default function ConfigTask(props: ConfigTaskProps) {
     if (params) {
       setInitialState(params.task);
     }
+    console.log('checking', status);
   }, []);
 
   useEffect(() => {
@@ -278,6 +284,19 @@ export default function ConfigTask(props: ConfigTaskProps) {
             onValueChange={() => setReminder(!reminder)}
           />
           <Text style={styles.checkBoxLabel}>Enable reminder</Text>
+        </View>
+
+        <View>
+          <Picker
+            selectedValue={status}
+            style={{ height: 50, width: 150 }}
+            onValueChange={(itemValue, itemIndex) =>
+              setStatus(itemValue)
+            }
+          >
+            <Picker.Item label="To do" value="todo" />
+            <Picker.Item label="Done" value="done" />
+          </Picker>
         </View>
 
         {/* <View>
