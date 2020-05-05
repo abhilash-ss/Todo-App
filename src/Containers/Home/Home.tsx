@@ -8,7 +8,6 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import useForceUpdate from '../../Hooks/useForceUpdate';
 import Header from '../../components/Header/Header';
 import Calender from '../../components/Calender/Calender';
 import ActionButton from '../../components/ActionButton/ActionButton';
