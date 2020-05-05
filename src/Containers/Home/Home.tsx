@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useReducer } from 'react';
 import {
   StyleSheet,
   View,
@@ -8,6 +8,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import useForceUpdate from '../../Hooks/useForceUpdate';
 import Header from '../../components/Header/Header';
 import Calender from '../../components/Calender/Calender';
 import ActionButton from '../../components/ActionButton/ActionButton';
@@ -22,6 +23,7 @@ interface HProps {
 export default function Home(props: HProps) {
   const { navigation } = props;
   const [todo, setTodos] = useState<TodoProps[]>([]);
+  const [ignored, forceUpdate] = useReducer(x => x + 1, 0); //TODO: need to find some other methods to force update
 
   const pressHandler = (key: TodoProps['key']) => {
     // const updatedList: TodoProps[] = todo.filter(task => task.key !== key);
@@ -39,6 +41,8 @@ export default function Home(props: HProps) {
       [index]: { ...todo[index], status: 'done' },
     });
     storeTaskList(updatedList);
+    forceUpdate();
+    // useForceUpdate();
     // const done = { ...todo[index], status: 'done' };
     // storeTaskList({ ...todo });
   };
@@ -67,7 +71,7 @@ export default function Home(props: HProps) {
     fetchTaskList();
     // storeTaskList([]); use when remove all tasks
     // console.log('todoTask in useEffect', todo);
-  }, []);
+  }, [ignored]);
 
   useFocusEffect(
     useCallback(() => {
